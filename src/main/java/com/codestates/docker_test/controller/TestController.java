@@ -10,7 +10,6 @@ public class TestController {
     @GetMapping
     public String test(Model model){
         try {
-            model.addAttribute("data","🚀");
             return "index";
         } catch (Exception e) {
             return null;
