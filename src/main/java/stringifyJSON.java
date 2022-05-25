@@ -4,7 +4,7 @@ import org.w3c.dom.ls.LSOutput;
 
 import java.util.*;
 
-/**
+/*
  * 1. Browser에 존재하는 stringify 함수를 직접 구현해 봅니다.
  * stringify 함수는 input 값을 JSON 형식으로 변환합니다.
  *
@@ -47,16 +47,60 @@ public class stringifyJSON {
   public String stringify(Object data) {
 
     //입력된 값이 문자열일 경우
+    if(data instanceof String){
+      return String.format("\"%s\"", data);
+    }
 
     //입력된 값이 Integer일 경우
+    if(data instanceof Integer){
+      return String.format("%d", data);
+    }
 
     //입력된 값이 Boolean일 경우
+    if(data instanceof Boolean){
+      return String.format("%b", data);
+    }
+
 
     //입력된 값이 Object[]일 경우
+    if(data instanceof Object[]){
+      String result = "";
+      int i=0;
+
+      for(Object obj : (Object[]) data){
+        result += stringify(obj);
+
+        if(((Object[]) data).length!=1 && i != ((Object[]) data).length-1){
+          result += ",";
+        }
+        i++;
+      }
+
+      return  "[" + result + "]";
+    }
+
 
     //입력된 값이 HashMap일 경우
+    if(data instanceof HashMap){
+      String result = "";
+      int i = 0;
+
+      for(Object obj : ((HashMap<?, ?>) data).keySet()){
+        result += stringify(obj)
+                + ":"
+                + stringify(((HashMap<?, ?>) data).get(obj));
+
+        if(((HashMap<?, ?>) data).size() != 1 && i != ((HashMap) data).size()-1){
+          result += ",";
+        }
+        i++;
+      }
+
+      return "{" + result + "}";
+    }
+
 
     //지정되지 않은 타입의 경우에는 "null"을 리턴합니다.
-
+    return "null";
   }
 }
