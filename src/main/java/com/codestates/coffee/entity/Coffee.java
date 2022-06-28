@@ -1,11 +1,15 @@
-package com.codestates.coffee;
+package com.codestates.coffee.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class CoffeeResponseDto {
+public class Coffee {
     private long coffeeId;
     private String korName;
     private String engName;
