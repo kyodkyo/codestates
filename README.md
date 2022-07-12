@@ -1,1 +1,1 @@
-# im-spring-pacman-canvas
+# be-pacman-canvas
