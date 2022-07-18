@@ -2,22 +2,19 @@ package com.codestates.member.service;
 
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.helper.EmailSender;
+import com.codestates.helper.event.MemberRegistrationApplicationEvent;
 import com.codestates.member.entity.Member;
 import com.codestates.member.repository.MemberRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.mail.MailSendException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  *  - 메서드 구현
@@ -25,37 +22,25 @@ import java.util.concurrent.Executors;
  *  - Spring Data JPA 적용
  *  - 트랜잭션 적용
  */
-@Slf4j
 @Transactional
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final EmailSender emailSender;
+    private final ApplicationEventPublisher publisher;
 
     public MemberService(MemberRepository memberRepository,
-                         EmailSender emailSender) {
+                         ApplicationEventPublisher publisher) {
         this.memberRepository = memberRepository;
-        this.emailSender = emailSender;
+        this.publisher = publisher;
+
     }
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
         Member savedMember = memberRepository.save(member);
-        /**
-         * TODO
-         *  - 현재 이메일 전송 중 5초 뒤에 예외가 발생합니다.
-         *  - 이메일 전송에 실패할 경우에만, 앞에서 DB에 저장된 회원 정보를 삭제(rollback)하도록
-         *  코드를 구현하세요.
-         */
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.submit(() -> {
-            try {
-                emailSender.sendEmail("any email message");
-            } catch (Exception e) {
-                log.error("MailSendException happened: ", e);
-                throw new RuntimeException(e);
-            }
-        });
+
+        // 추가된 부분
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
         return savedMember;
     }
 
