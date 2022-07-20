@@ -1,4 +1,3 @@
-# 로컬 환경에서 사용하는 정보들은 application-local.yml 파일에 설정합니다.
 spring:
   h2:
     console:
@@ -8,11 +7,11 @@ spring:
     url: jdbc:h2:mem:test
   jpa:
     hibernate:
-      ddl-auto: create  # (1) 스키마 자동 생성
-    show-sql: true      # (2) SQL 쿼리 출력
+      ddl-auto: create
+    show-sql: true
     properties:
       hibernate:
-        format_sql: true  # (3) SQL pretty print
+        format_sql: true
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
