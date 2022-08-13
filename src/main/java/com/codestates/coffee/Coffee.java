@@ -24,6 +24,7 @@ public class Coffee {
 
     private CoffeeStatus coffeeStatus = CoffeeStatus.COFFEE_FOR_SALE;
 
+
     public enum CoffeeStatus {
         COFFEE_FOR_SALE("판매중"),
         COFFEE_SOLD_OUT("판매 중지");
