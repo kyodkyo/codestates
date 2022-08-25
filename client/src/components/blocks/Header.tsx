@@ -29,14 +29,14 @@ const Header = ({ themeMode, toggleTheme }: IToggle) => {
           <li className="menu">
             <Link to="/questions">
               <Text className="menu" fontSize="md" fontWeight="semiBold">
-                TODO
+                QUESTIONS
               </Text>
             </Link>
           </li>
           <li className="menu">
             <Link to="/question">
               <Text className="menu" fontSize="md" fontWeight="semiBold">
-                SHOP
+                개별질문창(임시)
               </Text>
             </Link>
           </li>
