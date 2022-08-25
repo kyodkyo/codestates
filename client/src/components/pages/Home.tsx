@@ -1,25 +1,26 @@
-import styled from 'styled-components';
-import Card from '../../atoms/Card';
-import { media } from '../../../style/media';
-import { Text } from '../../atoms/Text';
+import { Text } from '../atoms/Text';
 import React from 'react';
+import styled from 'styled-components';
 
-const QuestionPages = () => {
+import Card from '../atoms/Card';
+import { media } from '../../style/media';
+
+const Home = () => {
   return (
-    <StyledQuestionCard>
+    <StyledHomeCard>
       <Text className="big" fontSize="xxl" fontWeight="extraBold">
-        {'📄'} ---- This is Questions!!! ---- {'📄'}
+        {'😁'} ---- Welcome to my StackOverFlow ---- {'😁'}
       </Text>
       <Text className="small" fontSize="xxl" fontWeight="extraBold">
-        {'📄'} M Version!!! {'📄'}
+        {'😁'} Mobile Version {'😁'}
       </Text>
-    </StyledQuestionCard>
+    </StyledHomeCard>
   );
 };
 
-export default QuestionPages;
+export default Home;
 
-const StyledQuestionCard = styled(Card)`
+const StyledHomeCard = styled(Card)`
   text-align: center;
 
   .big {
