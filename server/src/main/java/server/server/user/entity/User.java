@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    private long userNumber;
+    private int userNumber;
     @Column
     private String userId;
     @Column
