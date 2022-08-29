@@ -11,7 +11,6 @@ const SideMenu = () => {
   const menus = [
     { name: 'HOME', path: '/' },
     { name: 'QUESTIONS', path: '/questions' },
-    { name: '개별질문창(임시)', path: '/question' },
   ];
 
   return (
@@ -33,11 +32,12 @@ export default SideMenu;
 const StyledSideMenu = styled.ul<{ open: boolean }>`
   position: absolute;
   width: 250px;
-  height: 80%;
+  height: 60%;
   background-color: ${({ theme }) => theme.mode.background};
   list-style: none;
   display: none;
   margin-top: -1px;
+  z-index: 100;
 
   ${media.custom('768px')} {
     display: block;

@@ -14,6 +14,7 @@ import { darkModeActions } from './store/darkMode-slice';
 import Header from './components/blocks/Header';
 import SideMenu from './components/blocks/SideMenu';
 import Loading from './components/atoms/Loading';
+import Footer from './components/blocks/Footer';
 
 const Home = React.lazy(() => import('./components/pages/Home'));
 const QuestionsPage = React.lazy(
@@ -58,6 +59,7 @@ function App() {
             </Routes>
           </Suspense>
         </BackGround>
+        <Footer />
       </ThemeProvider>
     </BrowserRouter>
   );
