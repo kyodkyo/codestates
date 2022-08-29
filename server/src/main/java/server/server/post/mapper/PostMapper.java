@@ -1,4 +1,16 @@
 package server.server.post.mapper;
 
-public class PostMapper {
+
+import org.mapstruct.Mapper;
+import server.server.post.dto.PostResponseDto;
+import server.server.post.entity.Post;
+
+import java.util.List;
+
+@Mapper(componentModel = "spring")
+public interface PostMapper {
+
+    PostResponseDto postToPostResponseDto(Post post);
+    List<PostResponseDto> postsToPostResponseDtos(List<Post> posts);
+
 }

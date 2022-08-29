@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +13,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
+@Entity(name = "post")
+@Table(name = "post")
 public class Post {
 
     @Id
@@ -33,4 +35,6 @@ public class Post {
         this.title = title;
         this.contents = contents;
     }
+
+
 }
