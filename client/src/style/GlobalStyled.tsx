@@ -20,9 +20,6 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding-top: 64px;
     background-color: ${({ theme }) => theme.mode.mainBackground};
-    border: 1px solid transparent;
-    transition: 0.3s;
-    height: 100%;
   }
 
   html, body {

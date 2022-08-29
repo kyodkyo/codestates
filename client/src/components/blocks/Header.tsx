@@ -4,16 +4,11 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from '../../style/media';
 import { Text } from '../atoms/Text';
-import Toggle from '../atoms/Toggle';
+import DarkModeButton from '../atoms/DarkModeButton';
 import { TbSearch } from 'react-icons/tb';
 import HamburgerMenu from '../atoms/HamburgerMenu';
 
-export interface IToggle {
-  themeMode: string;
-  toggleTheme: () => void;
-}
-
-const Header = ({ themeMode, toggleTheme }: IToggle) => {
+const Header = () => {
   const menus = [
     { name: 'QUESTIONS', path: '/questions' },
     { name: '개별질문창(임시)', path: '/question' },
@@ -37,7 +32,7 @@ const Header = ({ themeMode, toggleTheme }: IToggle) => {
         <ul>
           {menus}
           <li>
-            <Toggle themeMode={themeMode} toggleTheme={toggleTheme} />
+            <DarkModeButton />
           </li>
           <li className="search-menu">
             <TbSearch />
