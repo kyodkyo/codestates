@@ -1,13 +1,9 @@
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
-import SideMenu from '../components/blocks/SideMenu';
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
   // css 초기값 정의
   ${reset}
-
-  ;
-
   *,
   *::before,
   *::after {
@@ -18,7 +14,6 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     margin: 0;
-    padding-top: 64px;
     background-color: ${({ theme }) => theme.mode.mainBackground};
   }
 
@@ -27,12 +22,13 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
   }
 
-  #root {
+  .app {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    min-height: 100vh;
   }
-  
 
-  
 `;
 
 export default GlobalStyles;
