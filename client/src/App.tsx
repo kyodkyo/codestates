@@ -7,7 +7,6 @@ import { useDarkMode } from './hooks/useDarkMode';
 import { dark, light, fontWeights, fontSizes } from './style/theme';
 
 import Header from './components/blocks/Header';
-import Footer from './components/blocks/Footer';
 
 const Home = React.lazy(() => import('./components/pages/Home'));
 
@@ -40,7 +39,6 @@ function App() {
               <Route path="/question" element={<QuestionPage />} />
             </Routes>
           </Suspense>
-          <Footer />
         </BackGround>
       </ThemeProvider>
     </BrowserRouter>
