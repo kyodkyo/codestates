@@ -5,6 +5,15 @@ import { Text } from '../../atoms/Text';
 import React from 'react';
 
 const QuestionPages = () => {
+  // 제목 컴포넌트
+  // 내용 컴포넌트
+  // 댓글 컴포넌트
+
+  // useEffect []  redux로 현재 클릭된 페이지 확인
+  // 확인한 페이지를 api요청
+  // 요청한 데이터를 상태에 저장 작성자, 제목, 아이디, 작성일  // 작성자 댓글  작성일
+
+  //
   return (
     <StyledQuestionCard>
       <Text className="big" fontSize="xxl" fontWeight="extraBold">

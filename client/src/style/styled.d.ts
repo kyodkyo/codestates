@@ -29,6 +29,7 @@ declare module 'styled-components' {
       black: string;
       red: string;
       white: string;
+      card: string;
       lightImg: string;
       darkImg: string;
       [key: string]: any;

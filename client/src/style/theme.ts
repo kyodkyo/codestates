@@ -27,6 +27,7 @@ const dark = {
   black: '#222831',
   red: '#fc5185',
   white: '#fff',
+  card: '#222f64',
   lightImg: '',
   darkImg: 'invert()',
 };
@@ -58,7 +59,8 @@ const light = {
   gray4: '#393e46',
   black: '#222831',
   red: '#fc5185',
-  white: '#fff',
+  white: '#e4e5ec',
+  card: '#e0e1ec',
   lightImg: 'invert()',
   darkImg: '',
 };

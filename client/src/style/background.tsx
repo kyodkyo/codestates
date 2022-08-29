@@ -5,7 +5,6 @@ const BackGround = styled.div`
   border: 1px solid transparent;
   transition: 0.3s;
   height: 100%;
-  overflow-y: scroll;
 `;
 
 export default BackGround;

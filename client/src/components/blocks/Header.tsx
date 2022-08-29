@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; //ㅇ
+import { NavLink } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { media } from '../../style/media';
 import { Text } from '../atoms/Text';
 import Toggle from '../atoms/Toggle';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { TbSearch } from 'react-icons/tb';
+import HamburgerMenu from '../atoms/HamburgerMenu';
 
 export interface IToggle {
   themeMode: string;
@@ -14,32 +14,28 @@ export interface IToggle {
 }
 
 const Header = ({ themeMode, toggleTheme }: IToggle) => {
+  const menus = [
+    { name: 'QUESTIONS', path: '/questions' },
+    { name: '개별질문창(임시)', path: '/question' },
+  ].map((menu, idx) => (
+    <li className="menu" key={idx}>
+      <NavStyle to={menu.path}>{menu.name}</NavStyle>
+    </li>
+  ));
+
   return (
     <StyledHeader>
       <li className="hamburger-menu">
-        <GiHamburgerMenu />
+        <HamburgerMenu />
       </li>
-      <Link to="/" className="logo">
+      <NavLink to="/" className="logo">
         <Text className="logo" fontSize="xl" fontWeight="bold">
           MyStackOverFlow
         </Text>
-      </Link>
+      </NavLink>
       <nav>
         <ul>
-          <li className="menu">
-            <Link to="/questions">
-              <Text className="menu" fontSize="md" fontWeight="semiBold">
-                QUESTIONS
-              </Text>
-            </Link>
-          </li>
-          <li className="menu">
-            <Link to="/question">
-              <Text className="menu" fontSize="md" fontWeight="semiBold">
-                개별질문창(임시)
-              </Text>
-            </Link>
-          </li>
+          {menus}
           <li>
             <Toggle themeMode={themeMode} toggleTheme={toggleTheme} />
           </li>
@@ -69,13 +65,18 @@ const StyledHeader = styled.header`
   padding: 0 3%;
   border-bottom: ${({ theme }) => `1px solid ${theme.mode.divider}`};
 
+  a:link,
+  a:visited {
+    text-decoration: none;
+  }
+
   .logo {
     margin-left: 5px;
     margin-right: auto;
     display: block;
     cursor: pointer;
 
-    ${media.custom('992px')} {
+    ${media.custom('768px')} {
       display: none;
     }
   }
@@ -87,9 +88,9 @@ const StyledHeader = styled.header`
 
   .menu {
     display: block;
-    cursor: pointer;
+    margin-top: 2px;
 
-    ${media.custom('992px')} {
+    ${media.custom('768px')} {
       display: none;
     }
   }
@@ -106,11 +107,6 @@ const StyledHeader = styled.header`
     margin: 0 1rem;
   }
 
-  a:link,
-  a:visited {
-    text-decoration: none;
-  }
-
   .menu:hover,
   .menu:active {
     color: rgb(198, 198, 203);
@@ -119,16 +115,8 @@ const StyledHeader = styled.header`
   .hamburger-menu {
     display: none;
 
-    ${media.custom('992px')} {
+    ${media.custom('768px')} {
       display: block;
-    }
-
-    svg {
-      margin-top: 0.3rem;
-      color: ${({ theme }) => theme.mode.themeIcon};
-      height: 24px;
-      width: 24px;
-      cursor: pointer;
     }
   }
 
@@ -140,5 +128,29 @@ const StyledHeader = styled.header`
       width: 27px;
       cursor: pointer;
     }
+  }
+`;
+
+const NavStyle = styled(NavLink)`
+  color: ${({ theme }) => theme.mode.primaryText};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  &::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: ${({ theme }) => theme.mode.themeIcon};
+    transition: width 0.2s;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+  &.active {
+    color: ${({ theme }) => theme.mode.themeIcon};
+  }
+
+  &:link,
+  &:visited {
+    text-decoration: none;
   }
 `;

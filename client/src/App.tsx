@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
@@ -7,6 +7,10 @@ import { useDarkMode } from './hooks/useDarkMode';
 import { dark, light, fontWeights, fontSizes } from './style/theme';
 
 import Header from './components/blocks/Header';
+import SideMenu from './components/blocks/SideMenu';
+import GlobalStyles from './style/GlobalStyled';
+import { useDispatch } from 'react-redux';
+import { hamburgerMenuActions } from './store/hamburgerMenu-slice';
 
 const Home = React.lazy(() => import('./components/pages/Home'));
 
@@ -20,18 +24,25 @@ const QuestionPage = React.lazy(
 
 function App() {
   const [themeMode, toggleTheme] = useDarkMode();
+  const dispatch = useDispatch();
 
   const theme =
     themeMode === 'light'
       ? { mode: light, fontSizes, fontWeights }
       : { mode: dark, fontSizes, fontWeights };
 
+  const sideMenuHandler = () => {
+    dispatch(hamburgerMenuActions.close());
+  };
+
   // Redux Toolkit 사용법
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <BackGround>
-          <Header themeMode={themeMode} toggleTheme={toggleTheme}></Header>
+        <GlobalStyles />
+        <Header themeMode={themeMode} toggleTheme={toggleTheme}></Header>
+        <SideMenu />
+        <BackGround onClick={sideMenuHandler}>
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path="/" element={<Home />} />
