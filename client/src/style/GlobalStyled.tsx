@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import SideMenu from '../components/blocks/SideMenu';
 
 const GlobalStyles = createGlobalStyle`
   // css 초기값 정의
@@ -18,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     padding-top: 64px;
+    background-color: ${({ theme }) => theme.mode.mainBackground};
   }
 
   html, body {
@@ -28,7 +30,9 @@ const GlobalStyles = createGlobalStyle`
   #root {
     height: 100%;
   }
+  
 
+  
 `;
 
 export default GlobalStyles;
