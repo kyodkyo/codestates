@@ -9,11 +9,12 @@ interface Props {
   date: string;
 }
 
-const getKST = (date: string) => {
-  const newDate = new Date(date);
-  newDate.setHours(newDate.getHours() + 9);
-  return newDate.toISOString().replace('T', ' ').substring(0, 16);
-};
+// 날짜 변환 로직
+// const getKST = (date: string) => {
+//   const newDate = new Date(date);
+//   newDate.setHours(newDate.getHours() + 9);
+//   return newDate.toISOString().replace('T', ' ').substring(0, 16);
+// };
 
 const Question = ({ title, user, date }: Props) => {
   return (
@@ -23,7 +24,7 @@ const Question = ({ title, user, date }: Props) => {
       </h2>
       <span className="info">
         <Text className="user">{user}</Text>
-        <Text>{getKST(date)}</Text>
+        <Text>{date}</Text>
       </span>
     </StyledQuestion>
   );

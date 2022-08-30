@@ -1,24 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { media } from '../../style/media';
+import { hamburgerMenuActions } from '../../store/hamburgerMenu-slice';
 
 const SideMenu = () => {
   const open = useSelector((state: RootState) => state.hamburgerMenu.checked);
-
+  const dispatch = useDispatch();
   const menus = [
     { name: 'HOME', path: '/' },
     { name: 'QUESTIONS', path: '/questions' },
   ];
+
+  const sideMenuHandler = () => {
+    dispatch(hamburgerMenuActions.close());
+  };
 
   return (
     <StyledSideMenu open={open}>
       <div className="margin"></div>
       {menus.map((menu, index) => {
         return (
-          <li className="menu" key={index}>
+          <li className="menu" key={index} onClick={sideMenuHandler}>
             <NavStyle to={menu.path}>{menu.name}</NavStyle>
           </li>
         );
@@ -37,6 +42,7 @@ const StyledSideMenu = styled.ul<{ open: boolean }>`
   list-style: none;
   display: none;
   z-index: 100;
+  margin-top: 64px;
 
   ${media.custom('768px')} {
     display: block;
