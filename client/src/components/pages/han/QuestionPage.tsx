@@ -8,6 +8,11 @@ import { testActions } from '../../../store/test-slice';
 const QuestionPage = () => {
   const dispatch = useDispatch();
   const testMessage = useSelector((state: RootState) => state.test.text);
+
+  const 현재클릭된페이지 = useSelector(
+    (state: RootState) => state.questionUrl.url
+  );
+
   const testHandler1 = () => {
     dispatch(testActions.test('1'));
   };
@@ -17,7 +22,27 @@ const QuestionPage = () => {
   };
   return (
     <>
-      QuestionPage!!!!
+      <div>
+        {' '}
+        <Text fontSize="xxl"> {현재클릭된페이지}</Text>
+      </div>
+      <div>
+        {' '}
+        <Text fontSize="xxl"> {현재클릭된페이지}</Text>
+      </div>
+      <div>
+        {' '}
+        <Text fontSize="xxl"> {현재클릭된페이지}</Text>
+      </div>
+      <div>
+        {' '}
+        <Text fontSize="xxl"> {현재클릭된페이지}</Text>
+      </div>
+      <div>
+        {' '}
+        <Text fontSize="xxl"> {현재클릭된페이지}</Text>
+      </div>
+
       <div>
         <Text fontSize="xxl">{testMessage}</Text>
         <Button onClick={testHandler1}>1</Button>

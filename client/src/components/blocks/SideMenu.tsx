@@ -36,7 +36,6 @@ const StyledSideMenu = styled.ul<{ open: boolean }>`
   background-color: ${({ theme }) => theme.mode.background};
   list-style: none;
   display: none;
-  margin-top: -1px;
   z-index: 100;
 
   ${media.custom('768px')} {
@@ -52,14 +51,8 @@ const StyledSideMenu = styled.ul<{ open: boolean }>`
     margin-left: 30px;
   }
 
-  ${(props) =>
-    props.open
-      ? css`
-          transform: translateX(0px);
-        `
-      : css`
-          transform: translateX(-100%);
-        `};
+  transform: ${(props) =>
+    props.open ? css`translateX(0px)` : css`translateX(-100%)`};
 
   transition: transform 0.4s;
 
