@@ -24,6 +24,10 @@ const QuestionPage = React.lazy(
   () => import('./components/pages/han/QuestionPage')
 );
 
+const AddQuestionPage = React.lazy(
+  () => import('./components/pages/han/AddQuestionPage')
+);
+
 function App() {
   const mode = useSelector((state: RootState) => state.darkMode.mode) as string;
   const dispatch = useDispatch();
@@ -45,23 +49,26 @@ function App() {
 
   // Redux Toolkit 사용법
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Header></Header>
-        <SideMenu />
-        <BackGround onClick={sideMenuHandler}>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/questions" element={<QuestionsPage />} />
-              <Route path="/question" element={<QuestionPage />} />
-            </Routes>
-          </Suspense>
-        </BackGround>
-        <Footer />
-      </ThemeProvider>
-    </BrowserRouter>
+    <div className="app">
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <Header></Header>
+          <SideMenu />
+          <BackGround onClick={sideMenuHandler}>
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/questions" element={<QuestionsPage />} />
+                <Route path="/question/:id" element={<QuestionPage />} />
+                <Route path="/add-question" element={<AddQuestionPage />} />
+              </Routes>
+            </Suspense>
+          </BackGround>
+          <Footer />
+        </ThemeProvider>
+      </BrowserRouter>
+    </div>
   );
 }
 

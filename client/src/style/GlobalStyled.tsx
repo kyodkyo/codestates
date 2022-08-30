@@ -1,13 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import SideMenu from '../components/blocks/SideMenu';
 
 const GlobalStyles = createGlobalStyle`
   // css 초기값 정의
   ${reset}
-
-  ;
-
   *,
   *::before,
   *::after {
@@ -15,10 +11,9 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-
+  
   body {
     margin: 0;
-    padding-top: 64px;
     background-color: ${({ theme }) => theme.mode.mainBackground};
   }
 
@@ -26,12 +21,13 @@ const GlobalStyles = createGlobalStyle`
     font-family: sans-serif;
     height: 100%;
   }
-
-  #root {
-    height: 100%;
-  }
   
-
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+  }
   
 `;
 
