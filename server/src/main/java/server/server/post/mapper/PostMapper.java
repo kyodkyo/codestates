@@ -2,6 +2,7 @@ package server.server.post.mapper;
 
 
 import org.mapstruct.Mapper;
+import server.server.post.dto.PostDto;
 import server.server.post.dto.PostResponseDto;
 import server.server.post.entity.Post;
 
@@ -12,5 +13,8 @@ public interface PostMapper {
 
     PostResponseDto postToPostResponseDto(Post post);
     List<PostResponseDto> postsToPostResponseDtos(List<Post> posts);
+
+    Post postDtoToPost(PostDto.RequestPostDto postDto);
+    PostDto.ResponsePostDto postToResponse(Post post);
 
 }

@@ -6,9 +6,12 @@ import server.server.post.entity.Post;
 
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Integer> {
 
     @Override
     @Query(value = "SELECT * FROM post p", nativeQuery = true)
     List<Post> findAll();
+
+    @Query(value = "SELECT * FROM post p", nativeQuery = true)
+    Post save();
 }
