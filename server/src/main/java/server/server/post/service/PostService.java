@@ -2,6 +2,7 @@ package server.server.post.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +11,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import server.server.post.entity.Post;
 import server.server.post.repository.PostRepository;
+
+import server.server.user.entity.User;
+import server.server.user.repository.UserRepository;
+
 import server.server.user.exception.BusinessLogicException;
 import server.server.user.exception.ExceptionCode;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,12 @@ public class PostService {
     }
 
 
+    public Post createPost(Post post) {
+        return postRepository.save(post);
+    }
+
+
+
     public void deletePost(int postNumber){
         Post findPost = findVerifiedPost(postNumber);
         postRepository.delete(findPost);
@@ -42,6 +54,7 @@ public class PostService {
 
         return findPost;
     }
+
 
 
 }

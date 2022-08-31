@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import server.server.post.dto.MultiResponseDto;
+import server.server.post.dto.PostDto;
 import server.server.post.dto.PostResponseDto;
 import server.server.post.entity.Post;
 import server.server.post.mapper.PostMapper;
@@ -41,14 +43,22 @@ public class PostController {
     }
 
 
+    @PostMapping
+    public ResponseEntity postPosts(@RequestBody PostDto.RequestPostDto postDto) {
+        Post post = mapper.postDtoToPost(postDto);
+        Post mpPost = postService.createPost(post);
+//        PostDto.ResponsePostDto resultDto = mapper.postToResponse(mpPost);
+        return new ResponseEntity<>(mpPost, HttpStatus.CREATED);
+    }
+
+
+
     @DeleteMapping("/{post-number}")
     public ResponseEntity deletePost(@PathVariable("post-number") int postNumber){
         postService.deletePost(postNumber);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-
 
 
 }
