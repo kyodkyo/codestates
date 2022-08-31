@@ -7,7 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+
 import server.server.post.dto.MultiResponseDto;
 import server.server.post.dto.PostDto;
 import server.server.post.dto.PostResponseDto;
@@ -22,6 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController   //controller + responseBody
 @Slf4j
+@RequestMapping("/post")
 public class PostController {
 
     private final PostService postService;
@@ -35,6 +42,7 @@ public class PostController {
         return new ResponseEntity<>(new MultiResponseDto<>(posts, pagePosts), HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity postPosts(@RequestBody PostDto.RequestPostDto postDto) {
         Post post = mapper.postDtoToPost(postDto);
@@ -43,13 +51,26 @@ public class PostController {
         return new ResponseEntity<>(mpPost, HttpStatus.CREATED);
     }
 
+
+
+    @DeleteMapping("/{post-number}")
+    public ResponseEntity deletePost(@PathVariable("post-number") int postNumber){
+        postService.deletePost(postNumber);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
 }
+
+
 
 
 
 /**
  *
  *
+
         @GetMapping("/questions")
         public ResponseEntity getPosts(){
             List<Post> posts = postService.findPosts();

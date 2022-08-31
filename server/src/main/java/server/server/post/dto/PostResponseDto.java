@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 public class PostResponseDto {
     private int postNumber;
     private int userNumber;
+    private String userId;
     private Timestamp date;
     private String title;
     private String contents;

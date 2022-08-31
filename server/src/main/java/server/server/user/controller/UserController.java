@@ -22,16 +22,16 @@ public class UserController {
 
         userService.findUser(userId);
 
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{user-id}")
-    public ResponseEntity deleteMember(
-            @PathVariable("user-id") long userId) {
+    public ResponseEntity deleteMember(@PathVariable("user-id") long userId) {
+
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
 }
