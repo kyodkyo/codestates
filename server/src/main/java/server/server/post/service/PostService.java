@@ -28,6 +28,7 @@ public class PostService {
         return postRepository.findAll(PageRequest.of(page, size));
     }
 
+
     public void deletePost(int postNumber){
         Post findPost = findVerifiedPost(postNumber);
         postRepository.delete(findPost);
@@ -41,8 +42,6 @@ public class PostService {
 
         return findPost;
     }
-
-
 
 
 }
