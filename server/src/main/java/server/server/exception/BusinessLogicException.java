@@ -1,4 +1,4 @@
-package server.server.user.exception;
+package server.server.exception;
 
 import lombok.Getter;
 

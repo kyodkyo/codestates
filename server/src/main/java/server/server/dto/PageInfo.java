@@ -1,4 +1,4 @@
-package server.server.post.dto;
+package server.server.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
