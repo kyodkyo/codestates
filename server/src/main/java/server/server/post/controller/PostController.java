@@ -42,15 +42,18 @@ public class PostController {
     @PostMapping
     public ResponseEntity postPosts(@RequestBody PostRequestDto postDto) {
         Post post = mapper.postRequestToPost(postDto);
-        Post mpPost = postService.createPost(post);
-        PostResponseDto resultDto = mapper.postToPostResponse(mpPost);
-        return new ResponseEntity<>(resultDto, HttpStatus.CREATED);
+        Post newPost = postService.createPost(post);
+
+        PostResponseDto result = mapper.postToPostResponse(newPost);
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping("/questions")
     public ResponseEntity findPosts(){
+        List<Post> posts = postService.findAllPosts();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(posts, HttpStatus.OK);
     }
 
 
