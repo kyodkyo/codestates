@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import server.server.user.dto.UserRequestDto;
 import server.server.user.entity.User;
 import server.server.exception.BusinessLogicException;
 import server.server.exception.ExceptionCode;
@@ -19,8 +20,27 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public String signUp(UserRequestDto requestDto) {
+        userRepository.save(User.builder()
+                .userId(requestDto.getUserId())
+                .userPw(requestDto.getUserPw())
+                .email(requestDto.getEmail())
+                .build());
+
+        return "SUCCESS";
+    }
+
+    public String login(String email, String userPw){
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user.get().getUserPw().equals(userPw)){
+            return "SUCCESS";
+        }
+
+        return "FAILED";
+    }
+
     public ResponseEntity findUser(String userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<User> optionalUser = userRepository.findByUserId(userId);
         User findUser = optionalUser.orElseThrow(
                 ()->new BusinessLogicException(ExceptionCode.USER_NOT_FOUND)
         );
@@ -31,17 +51,25 @@ public class UserService {
     @Transactional(readOnly = true)
     public User findVerifiedUser(String userId) {
         Optional<User> optionalMember =
-                userRepository.findById(userId);
+                userRepository.findByUserId(userId);
         User findUser =
                 optionalMember.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findUser;
     }
 
-    public void deleteUser(String userId) {
+    public String deleteUser(String userId, String userPw) {
         User findUser = findVerifiedUser(userId);
 
-        userRepository.delete(findUser);
+        if(findUser.getUserPw().equals(userPw)){
+            userRepository.delete(findUser);
+            return "SUCCESS";
+        }
+
+        return "FAILED";
     }
 
+    public boolean checkUserIdDuplicate(String userId) {
+        return userRepository.existsByUserId(userId);
+    }
 }
