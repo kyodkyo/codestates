@@ -9,10 +9,11 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    @Override
-    @Query(value = "SELECT * FROM post INNER JOIN user ON post.post_number = user.user_number" ,nativeQuery = true)
     List<Post> findAll();
 
     Optional<Post> findByPostNumber(int postNumber);
 
 }
+
+
+// @Query(value="", nativeQuery = true)

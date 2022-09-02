@@ -21,22 +21,27 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+
     public List<Post> findAllPosts(){
         return postRepository.findAll();
     }
+
 
     public Page<Post> findPosts(int page, int size){
         return postRepository.findAll(PageRequest.of(page, size));
     }
 
+
     public Post createPost(Post post) {
         return postRepository.save(post);
     }
+
 
     public void deletePost(int postNumber){
         Post findPost = findVerifiedPost(postNumber);
         postRepository.delete(findPost);
     }
+
 
     private Post findVerifiedPost(int postNumber){
         Optional<Post> optionalPost = postRepository.findByPostNumber(postNumber);
