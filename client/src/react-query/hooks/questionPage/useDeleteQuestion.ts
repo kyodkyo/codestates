@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const deleteQuestion = async (
   postNumber: string | undefined
 ): Promise<void> => {
-  console.log("deleteMethod: ", postNumber);
   await axiosInstance.delete(`post/questions/${postNumber}`);
 };
 

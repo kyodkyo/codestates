@@ -11,7 +11,7 @@ import { Text } from "../atoms/Text";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
-import { useDeleteQuestion } from "../../react-query/hooks/QuestionPage/useDeleteQuestion";
+import { useDeleteQuestion } from "../../react-query/hooks/questionPage/useDeleteQuestion";
 import { useParams } from "react-router-dom";
 
 const QuestionView = () => {

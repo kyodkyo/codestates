@@ -11,19 +11,12 @@ import { ThemeProvider } from "styled-components";
 import BackGround from "./style/background";
 import { dark, light, fontWeights, fontSizes } from "./style/theme";
 
-<<<<<<< HEAD
 import GlobalStyles from "./style/GlobalStyled";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store";
 import { hamburgerMenuActions } from "./store/ui-slice/hamburgerMenu-slice";
 import { darkModeActions } from "./store/ui-slice/darkMode-slice";
 import { SearchMenuActions } from "./store/ui-slice/SearchMenu-slice";
-=======
-import Header from './components/blocks/Header';
-import SideMenu from './components/blocks/SideMenu';
-import Loading from './components/atoms/Loading';
-import Footer from './components/blocks/Footer';
->>>>>>> dev
 
 import Header from "./components/blocks/Header";
 import SideMenu from "./components/blocks/SideMenu";
@@ -41,10 +34,6 @@ const QuestionPage = React.lazy(
 
 const AddQuestionPage = React.lazy(
   () => import("./components/pages/han/AddQuestionPage")
-);
-
-const AddQuestionPage = React.lazy(
-  () => import('./components/pages/han/AddQuestionPage')
 );
 
 function App() {
@@ -71,7 +60,6 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
-<<<<<<< HEAD
         <ChakraProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={GlobalTheme}>
@@ -99,24 +87,6 @@ function App() {
             <ReactQueryDevtools />
           </QueryClientProvider>
         </ChakraProvider>
-=======
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Header></Header>
-          <SideMenu />
-          <BackGround onClick={sideMenuHandler}>
-            <Suspense fallback={<Loading />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/questions" element={<QuestionsPage />} />
-                <Route path="/question/:id" element={<QuestionPage />} />
-                <Route path="/add-question" element={<AddQuestionPage />} />
-              </Routes>
-            </Suspense>
-          </BackGround>
-          <Footer />
-        </ThemeProvider>
->>>>>>> dev
       </BrowserRouter>
     </div>
   );
