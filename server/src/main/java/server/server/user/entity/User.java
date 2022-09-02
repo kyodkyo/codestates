@@ -1,30 +1,33 @@
 package server.server.user.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userNumber;
+
     @Column
     private String userId;
+
     @Column
+    @JsonIgnore
     private String userPw;
+
     @Column
     private String email;
 
-    public User(String userId, String email, String userPw) {
-        this.userId = userId;
-        this.email = email;
-        this.userPw = userPw;
-    }
+//    @OneToMany(mappedBy = "post")
+//    private List<Post> posts = new ArrayList<>();
 
 }
