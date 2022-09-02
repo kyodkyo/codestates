@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface IButton {
   backgroundColor?: string;
@@ -19,9 +19,9 @@ const Button = styled.button<IButton>`
     (color && theme.mode[color]) || theme.mode.defaultButtonColor};
   font-size: ${({ theme, fontSize }) =>
     (fontSize && theme.fontSizes[fontSize]) || theme.fontSizes.md};
-  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
   border-radius: 10px;
   border: 1px solid
@@ -29,7 +29,7 @@ const Button = styled.button<IButton>`
       (borderColor && theme.mode[borderColor]) ||
       theme.mode.defaultButtonColor};
   text-align: center;
-  padding: ${({ paddingSize }) => (paddingSize ? paddingSize : '10px 25px')};
+  padding: ${({ paddingSize }) => (paddingSize ? paddingSize : "10px 25px")};
   height: 100%;
 
   &:hover,

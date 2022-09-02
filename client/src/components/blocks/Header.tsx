@@ -1,17 +1,30 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-import styled from 'styled-components';
-import { media } from '../../style/media';
-import { Text } from '../atoms/Text';
-import DarkModeButton from '../atoms/DarkModeButton';
-import { TbSearch } from 'react-icons/tb';
-import HamburgerMenu from '../atoms/HamburgerMenu';
+import styled from "styled-components";
+import { media } from "../../style/media";
+import { Text } from "../atoms/Text";
+import DarkModeButton from "../atoms/DarkModeButton";
+import { TbSearch } from "react-icons/tb";
+import { MdOutlineClose } from "react-icons/md";
+import HamburgerMenu from "../atoms/HamburgerMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { SearchMenuActions } from "../../store/ui-slice/SearchMenu-slice";
+import { RootState } from "../../store";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const searchOpen = useSelector(
+    (state: RootState) => state.searchMenu.clicked
+  );
+
+  const searchButtonHandler = () => {
+    dispatch(SearchMenuActions.change());
+  };
+
   const menus = [
-    { name: 'QUESTIONS', path: '/questions' },
-    { name: '개별질문창(임시)', path: '/question' },
+    { name: "QUESTIONS", path: "/questions" },
+    { name: "개별질문창(임시)", path: "/question" },
   ].map((menu, idx) => (
     <li className="menu" key={idx}>
       <NavStyle to={menu.path}>{menu.name}</NavStyle>
@@ -19,7 +32,7 @@ const Header = () => {
   ));
 
   return (
-    <StyledHeader>
+    <StyledHeader open={searchOpen}>
       <li className="hamburger-menu">
         <HamburgerMenu />
       </li>
@@ -35,7 +48,8 @@ const Header = () => {
             <DarkModeButton />
           </li>
           <li className="search-menu">
-            <TbSearch />
+            <TbSearch className="search" onClick={searchButtonHandler} />
+            <MdOutlineClose className="close" onClick={searchButtonHandler} />
           </li>
         </ul>
       </nav>
@@ -45,7 +59,8 @@ const Header = () => {
 
 export default Header;
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{ open: boolean }>`
+  z-index: 100;
   position: fixed;
   top: 0;
   right: 0;
@@ -71,7 +86,7 @@ const StyledHeader = styled.header`
     display: block;
     cursor: pointer;
 
-    ${media.custom('768px')} {
+    ${media.custom("768px")} {
       display: none;
     }
   }
@@ -85,7 +100,7 @@ const StyledHeader = styled.header`
     display: block;
     margin-top: 2px;
 
-    ${media.custom('768px')} {
+    ${media.custom("768px")} {
       display: none;
     }
   }
@@ -110,18 +125,27 @@ const StyledHeader = styled.header`
   .hamburger-menu {
     display: none;
 
-    ${media.custom('768px')} {
+    ${media.custom("768px")} {
       display: block;
     }
   }
 
   .search-menu {
+    margin-left: 1rem;
+
     svg {
-      margin-top: 0.2rem;
       color: ${({ theme }) => theme.mode.themeIcon};
       height: 27px;
       width: 27px;
       cursor: pointer;
+    }
+
+    .search {
+      display: ${(props) => (props.open ? "none" : "block")};
+    }
+
+    .close {
+      display: ${(props) => (props.open ? "block" : "none")};
     }
   }
 `;
@@ -129,17 +153,20 @@ const StyledHeader = styled.header`
 const NavStyle = styled(NavLink)`
   color: ${({ theme }) => theme.mode.primaryText};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 0;
     height: 2px;
     background: ${({ theme }) => theme.mode.themeIcon};
     transition: width 0.2s;
   }
+
   &:hover::after {
     width: 100%;
   }
+
   &.active {
     color: ${({ theme }) => theme.mode.themeIcon};
   }

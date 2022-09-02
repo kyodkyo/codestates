@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const hamburgerMenuSlice = createSlice({
-  name: 'sideMenu',
+  name: "sideMenu",
   initialState: {
     closed: false,
     checked: false,
@@ -19,7 +19,3 @@ const hamburgerMenuSlice = createSlice({
 
 export const hamburgerMenuActions = hamburgerMenuSlice.actions;
 export default hamburgerMenuSlice;
-
-// 11111
-// 2222
-// 3333

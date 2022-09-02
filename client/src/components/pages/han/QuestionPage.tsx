@@ -1,28 +1,17 @@
-import { Text } from '../../atoms/Text';
-import Button from '../../atoms/Button';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import { testActions } from '../../../store/test-slice';
+import React from "react";
+import QuestionView from "../../blocks/QuestionDetail";
+import AnswerComment from "../../blocks/AnswerComment";
+import AddAnswer from "../../blocks/AddAnswer";
+import useScrollTop from "../../atoms/useScroll";
+import { useParams } from "react-router-dom";
 
 const QuestionPage = () => {
-  const dispatch = useDispatch();
-  const testMessage = useSelector((state: RootState) => state.test.text);
-  const testHandler1 = () => {
-    dispatch(testActions.test('1'));
-  };
-
-  const testHandler2 = () => {
-    dispatch(testActions.test('2'));
-  };
+  useScrollTop();
   return (
     <>
-      QuestionPage!!!!
-      <div>
-        <Text fontSize="xxl">{testMessage}</Text>
-        <Button onClick={testHandler1}>1</Button>
-        <Button onClick={testHandler2}>2</Button>
-      </div>
+      <QuestionView />
+      <AnswerComment />
+      <AddAnswer />
     </>
   );
 };

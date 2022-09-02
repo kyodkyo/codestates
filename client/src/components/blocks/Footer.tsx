@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Text } from '../atoms/Text';
+import React from "react";
+import styled from "styled-components";
+import { Text } from "../atoms/Text";
 // import { media } from '../../style/media';
 
 const Footer = () => {
@@ -38,20 +38,17 @@ const Footer = () => {
 
 export default Footer;
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
+  flex: 0 0 auto;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 0;
+  background-color: ${({ theme }) => theme.mode.background};
   border-top: ${({ theme }) => `1px solid ${theme.mode.divider}`};
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   @media (max-width: 640px) {
-    padding: 20px 20px;
-    padding-bottom: 30px;
+    padding: 20px 20px 30px;
   }
   .footer--link--container {
     width: 500px;
