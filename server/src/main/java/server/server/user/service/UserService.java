@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import server.server.user.dto.UserRequestDto;
-import server.server.user.entity.User;
 import server.server.exception.BusinessLogicException;
 import server.server.exception.ExceptionCode;
+import server.server.user.dto.UserRequestDto;
+import server.server.user.entity.User;
 import server.server.user.repository.UserRepository;
 
 import java.util.Optional;
@@ -32,9 +32,9 @@ public class UserService {
     }
 
 
-    public String login(String email, String userPw){
+    public String login(String email, String userPw) {
         Optional<User> user = userRepository.findByEmail(email);
-        if(user.get().getUserPw().equals(userPw)){
+        if (user.get().getUserPw().equals(userPw)) {
             return "SUCCESS";
         }
 
@@ -44,8 +44,9 @@ public class UserService {
 
     public ResponseEntity findUser(String userId) {
         Optional<User> optionalUser = userRepository.findByUserId(userId);
+
         User findUser = optionalUser.orElseThrow(
-                ()->new BusinessLogicException(ExceptionCode.USER_NOT_FOUND)
+                () -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND)
         );
 
         return new ResponseEntity(findUser, HttpStatus.OK);
@@ -54,11 +55,11 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findVerifiedUser(String userId) {
-        Optional<User> optionalMember =
-                userRepository.findByUserId(userId);
-        User findUser =
-                optionalMember.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        Optional<User> optionalMember = userRepository.findByUserId(userId);
+
+        User findUser = optionalMember.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
         return findUser;
     }
 
@@ -66,7 +67,7 @@ public class UserService {
     public String deleteUser(String userId, String userPw) {
         User findUser = findVerifiedUser(userId);
 
-        if(findUser.getUserPw().equals(userPw)){
+        if (findUser.getUserPw().equals(userPw)) {
             userRepository.delete(findUser);
             return "SUCCESS";
         }

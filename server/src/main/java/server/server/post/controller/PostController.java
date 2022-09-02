@@ -6,15 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import server.server.comment.entity.Comment;
 import server.server.comment.service.CommentService;
 import server.server.dto.MultiResponseDto;
+import server.server.exception.BusinessLogicException;
 import server.server.post.dto.PostRequestDto;
 import server.server.post.dto.PostResponseDto;
 import server.server.post.entity.Post;
@@ -24,10 +20,10 @@ import server.server.post.service.PostService;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@RequiredArgsConstructor
-@RestController   //controller + responseBody
 @Slf4j
+@Component
+@RestController   //controller + responseBody
+@RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
 
@@ -37,7 +33,7 @@ public class PostController {
 
 
     @GetMapping("/questions/detail/{post-number}")
-    public ResponseEntity getPost(@PathVariable("post-number") int postNumber){
+    public ResponseEntity getPost(@PathVariable("post-number") int postNumber) {
         Post post = postService.findVerifiedPost(postNumber);
 
         List<Comment> comments = commentService.findComments(postNumber);
@@ -51,7 +47,7 @@ public class PostController {
 
 
     @GetMapping
-    public ResponseEntity getPosts(@RequestParam int page, @RequestParam int size){
+    public ResponseEntity getPosts(@RequestParam int page, @RequestParam int size) {
         Page<Post> pagePosts = postService.findPosts(page, size);
         List<Post> posts = pagePosts.getContent();
 
@@ -71,7 +67,7 @@ public class PostController {
 
 
     @GetMapping("/questions")
-    public ResponseEntity findPosts(){
+    public ResponseEntity findPosts() {
         List<Post> posts = postService.findAllPosts();
 
         return new ResponseEntity(posts, HttpStatus.OK);
@@ -79,9 +75,11 @@ public class PostController {
 
 
     @DeleteMapping("/questions/delete/{post-number}")
-    public ResponseEntity deletePost(@PathVariable("post-number") int postNumber){
+    public ResponseEntity deletePost(@PathVariable("post-number") int postNumber) {
+        List<Comment> commentList = commentService.findComments(postNumber);
+        commentService.deleteComments(commentList);
+
         postService.deletePost(postNumber);
-        commentService.deleteComment(postNumber);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

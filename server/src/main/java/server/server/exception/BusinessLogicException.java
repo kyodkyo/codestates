@@ -3,6 +3,7 @@ package server.server.exception;
 import lombok.Getter;
 
 public class BusinessLogicException extends RuntimeException {
+
     @Getter
     private ExceptionCode exceptionCode;
 
@@ -10,4 +11,5 @@ public class BusinessLogicException extends RuntimeException {
         super(exceptionCode.getMessage());
         this.exceptionCode = exceptionCode;
     }
+
 }
