@@ -20,6 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+
     public String signUp(UserRequestDto requestDto) {
         userRepository.save(User.builder()
                 .userId(requestDto.getUserId())
@@ -30,6 +31,7 @@ public class UserService {
         return "SUCCESS";
     }
 
+
     public String login(String email, String userPw){
         Optional<User> user = userRepository.findByEmail(email);
         if(user.get().getUserPw().equals(userPw)){
@@ -38,6 +40,7 @@ public class UserService {
 
         return "FAILED";
     }
+
 
     public ResponseEntity findUser(String userId) {
         Optional<User> optionalUser = userRepository.findByUserId(userId);
@@ -48,6 +51,7 @@ public class UserService {
         return new ResponseEntity(findUser, HttpStatus.OK);
     }
 
+
     @Transactional(readOnly = true)
     public User findVerifiedUser(String userId) {
         Optional<User> optionalMember =
@@ -57,6 +61,7 @@ public class UserService {
                         new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findUser;
     }
+
 
     public String deleteUser(String userId, String userPw) {
         User findUser = findVerifiedUser(userId);
@@ -72,4 +77,5 @@ public class UserService {
     public boolean checkUserIdDuplicate(String userId) {
         return userRepository.existsByUserId(userId);
     }
+
 }

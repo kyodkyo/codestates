@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.server.exception.BusinessLogicException;
-import server.server.exception.ExceptionCode;
 import server.server.user.dto.UserRequestDto;
 import server.server.user.entity.User;
 import server.server.user.service.UserService;
@@ -24,7 +22,7 @@ public class UserController {
     public ResponseEntity signUp(@RequestBody UserRequestDto requestDto) {
         boolean check = userService.checkUserIdDuplicate(requestDto.getUserId());
 
-        if (check) {
+        if (!check) {
             if (userService.signUp(requestDto).equals("SUCCESS")) {
                 return new ResponseEntity(HttpStatus.CREATED);
             }
@@ -52,6 +50,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/delete")
     public ResponseEntity deleteMember(@RequestParam String userId, String userPw) {
         if(userService.deleteUser(userId, userPw).equals("SUCCESS")){
@@ -60,6 +59,5 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 
 }

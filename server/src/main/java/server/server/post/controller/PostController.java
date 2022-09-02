@@ -31,6 +31,7 @@ public class PostController {
     private final PostService postService;
     private final PostMapper mapper;
 
+
     @GetMapping
     public ResponseEntity getPosts(@RequestParam int page, @RequestParam int size){
         Page<Post> pagePosts = postService.findPosts(page, size);
@@ -38,6 +39,7 @@ public class PostController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(posts, pagePosts), HttpStatus.OK);
     }
+
 
     @PostMapping
     public ResponseEntity postPosts(@RequestBody PostRequestDto postDto) {
@@ -48,6 +50,7 @@ public class PostController {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+
 
     @GetMapping("/questions")
     public ResponseEntity findPosts(){
@@ -65,20 +68,3 @@ public class PostController {
     }
 
 }
-
-
-
-
-
-/**
- *
- *
-
-        @GetMapping("/questions")
-        public ResponseEntity getPosts(){
-            List<Post> posts = postService.findPosts();
-    //        List<PostResponseDto> postResponseDtoList = new ArrayList<>();
-
-            return new ResponseEntity(posts, HttpStatus.OK);
-        }
- */
