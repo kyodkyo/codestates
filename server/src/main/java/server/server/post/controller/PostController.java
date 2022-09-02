@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import server.server.comment.entity.Comment;
+import server.server.comment.service.CommentService;
 import server.server.dto.MultiResponseDto;
 import server.server.post.dto.PostRequestDto;
 import server.server.post.dto.PostResponseDto;
@@ -19,6 +21,7 @@ import server.server.post.entity.Post;
 import server.server.post.mapper.PostMapper;
 import server.server.post.service.PostService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -29,7 +32,22 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
     private final PostMapper mapper;
+
+
+    @GetMapping("/questions/detail/{post-number}")
+    public ResponseEntity getPost(@PathVariable("post-number") int postNumber){
+        Post post = postService.findVerifiedPost(postNumber);
+
+        List<Comment> comments = commentService.findComments(postNumber);
+
+        List<Object> result = new ArrayList<>();
+        result.add(post);
+        result.add(comments);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
     @GetMapping
@@ -60,9 +78,10 @@ public class PostController {
     }
 
 
-    @DeleteMapping("/questions/{post-number}")
+    @DeleteMapping("/questions/delete/{post-number}")
     public ResponseEntity deletePost(@PathVariable("post-number") int postNumber){
         postService.deletePost(postNumber);
+        commentService.deleteComment(postNumber);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

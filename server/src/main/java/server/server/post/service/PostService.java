@@ -43,7 +43,7 @@ public class PostService {
     }
 
 
-    private Post findVerifiedPost(int postNumber){
+    public Post findVerifiedPost(int postNumber){
         Optional<Post> optionalPost = postRepository.findByPostNumber(postNumber);
 
         Post findPost = optionalPost.orElseThrow(() ->
