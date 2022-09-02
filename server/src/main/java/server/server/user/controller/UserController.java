@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/signUp")
     public ResponseEntity signUp(@RequestBody UserRequestDto requestDto) {
-        boolean check = userService.checkUserIdDuplicate(requestDto.getUserId());
+        boolean check = userService.checkEmailDuplicate(requestDto.getEmail());
 
         if (!check) {
             if (userService.signUp(requestDto).equals("SUCCESS")) {

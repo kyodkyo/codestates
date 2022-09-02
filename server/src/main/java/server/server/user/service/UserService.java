@@ -75,8 +75,8 @@ public class UserService {
         return "FAILED";
     }
 
-    public boolean checkUserIdDuplicate(String userId) {
-        return userRepository.existsByUserId(userId);
+    public boolean checkEmailDuplicate(String email) {
+        return userRepository.existsByEmail(email);
     }
 
 }
