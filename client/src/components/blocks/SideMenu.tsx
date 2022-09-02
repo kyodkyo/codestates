@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+import styled, { css } from "styled-components";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { media } from "../../style/media";
+import { hamburgerMenuActions } from "../../store/ui-slice/hamburgerMenu-slice";
+=======
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
@@ -5,13 +13,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { media } from '../../style/media';
 import { hamburgerMenuActions } from '../../store/hamburgerMenu-slice';
+>>>>>>> dev
 
 const SideMenu = () => {
   const open = useSelector((state: RootState) => state.hamburgerMenu.checked);
   const dispatch = useDispatch();
   const menus = [
+<<<<<<< HEAD
+    { name: "HOME", path: "/" },
+    { name: "QUESTIONS", path: "/questions" },
+=======
     { name: 'HOME', path: '/' },
     { name: 'QUESTIONS', path: '/questions' },
+>>>>>>> dev
   ];
 
   const sideMenuHandler = () => {
@@ -35,22 +49,33 @@ const SideMenu = () => {
 export default SideMenu;
 
 const StyledSideMenu = styled.ul<{ open: boolean }>`
-  position: absolute;
+  position: fixed;
+  top: 64px;
+  left: 0;
   width: 250px;
+<<<<<<< HEAD
+  height: 100%;
+  background-color: ${({ theme }) => theme.mode.background};
+  list-style: none;
+  display: none;
+  z-index: 1000;
+=======
   height: 60%;
   background-color: ${({ theme }) => theme.mode.background};
   list-style: none;
   display: none;
   z-index: 100;
   margin-top: 64px;
+>>>>>>> dev
 
-  ${media.custom('768px')} {
+  ${media.custom("768px")} {
     display: block;
   }
 
   .margin {
     margin-top: 30px;
   }
+
   .menu {
     display: block;
     margin-top: 15px;

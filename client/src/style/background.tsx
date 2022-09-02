@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import styled from "styled-components";
 
 const BackGround = styled.section`
   background-color: ${({ theme }) => theme.mode.mainBackground};

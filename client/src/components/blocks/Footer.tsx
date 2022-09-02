@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Text } from '../atoms/Text';
+import React from "react";
+import styled from "styled-components";
+import { Text } from "../atoms/Text";
 // import { media } from '../../style/media';
 
 const Footer = () => {

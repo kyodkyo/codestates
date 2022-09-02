@@ -1,6 +1,6 @@
-import 'styled-components';
+import "styled-components";
 
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme {
     mode: {
       mainBackground: string;
@@ -13,6 +13,7 @@ declare module 'styled-components' {
       backgroundSub: string;
       tableHeader: string;
       themeIcon: string;
+      searchBar: string;
       // button-color
       defaultButtonColor: string;
       defaultButtonBackground: string;

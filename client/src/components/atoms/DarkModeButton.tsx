@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { MdLightMode, MdDarkMode } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { darkModeActions } from '../../store/darkMode-slice';
+import React from "react";
+import styled from "styled-components";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { darkModeActions } from "../../store/ui-slice/darkMode-slice";
 
 interface IWrapper {
   themeMode: string;
@@ -13,18 +13,18 @@ const DarkModeButton = () => {
   const dispatch = useDispatch();
   const mode = useSelector((state: RootState) => state.darkMode.mode) as string;
   const toggleTheme = () => {
-    if (mode === 'light') {
-      window.localStorage.setItem('theme', 'dark');
+    if (mode === "light") {
+      window.localStorage.setItem("theme", "dark");
       dispatch(darkModeActions.change());
     } else {
-      window.localStorage.setItem('theme', 'light');
+      window.localStorage.setItem("theme", "light");
       dispatch(darkModeActions.change());
     }
   };
 
   return (
     <StyledDarkModeButton onClick={toggleTheme} themeMode={mode}>
-      {mode === 'light' ? <MdLightMode /> : <MdDarkMode />}
+      {mode === "light" ? <MdLightMode /> : <MdDarkMode />}
     </StyledDarkModeButton>
   );
 };

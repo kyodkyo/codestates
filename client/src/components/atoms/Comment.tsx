@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 import styled from "styled-components";
 import Card from "./Card";
 import { media } from "../../style/media";
 import { Text } from "./Text";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-=======
-import styled from 'styled-components';
-import Card from './Card';
-import { media } from '../../style/media';
-import { Text } from './Text';
->>>>>>> dev
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import { Viewer } from "@toast-ui/react-editor";
 
 interface Props {
   title: string;
@@ -19,41 +12,45 @@ interface Props {
 }
 
 // 날짜 변환 로직
-<<<<<<< HEAD
-const getKST = (date: string) => {
-  const newDate = new Date(date);
-  //newDate.setHours(newDate.getHours() + 9);
-  return newDate.toISOString().replace("T", " ").substring(0, 19);
-};
-=======
 // const getKST = (date: string) => {
 //   const newDate = new Date(date);
 //   newDate.setHours(newDate.getHours() + 9);
 //   return newDate.toISOString().replace('T', ' ').substring(0, 16);
 // };
->>>>>>> dev
 
-const Question = ({ title, user, date }: Props) => {
+const Comment = ({ title, user, date }: Props) => {
+  const html = "답변 내용";
+
+  const deleteOnClick = () => {
+    console.log("삭제");
+  };
+
   return (
-    <StyledQuestion>
-      <h2>
-        <Text fontSize="lg">{title}</Text>
-      </h2>
+    <StyledComment>
+      <div>
+        <Text>
+          <Viewer initialValue={html} />
+        </Text>
+      </div>
       <span className="info">
         <Text className="user">{user}</Text>
-<<<<<<< HEAD
-        <Text>{getKST(date)}</Text>
-=======
         <Text>{date}</Text>
->>>>>>> dev
       </span>
-    </StyledQuestion>
+      <div className="edit">
+        {/* <span>
+          <Text>Edit</Text>
+        </span> */}
+        <span className="delete" onClick={deleteOnClick}>
+          <Text>Delete</Text>
+        </span>
+      </div>
+    </StyledComment>
   );
 };
 
-export default Question;
+export default Comment;
 
-const StyledQuestion = styled(Card)`
+const StyledComment = styled(Card)`
   display: flex;
   flex-direction: column;
   background-color: transparent;
@@ -62,10 +59,7 @@ const StyledQuestion = styled(Card)`
   span {
     cursor: pointer;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
   h2 {
     margin-bottom: 15px;
   }
@@ -74,46 +68,38 @@ const StyledQuestion = styled(Card)`
     margin-bottom: 10px;
   }
 
-<<<<<<< HEAD
-  h2 span {
-    margin-bottom: 15px;
-  }
-
-=======
->>>>>>> dev
   .info {
     display: flex;
     justify-content: flex-end;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
   .user {
     margin-right: 10px;
   }
 
   .big {
     display: block;
-<<<<<<< HEAD
 
     ${media.custom("992px")} {
-=======
-    ${media.custom('992px')} {
->>>>>>> dev
       display: none;
     }
   }
 
   .small {
     display: none;
-<<<<<<< HEAD
 
     ${media.custom("992px")} {
-=======
-    ${media.custom('992px')} {
->>>>>>> dev
       display: block;
     }
+  }
+
+  .edit {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+  }
+
+  .delete {
+    margin-left: 5px;
   }
 `;

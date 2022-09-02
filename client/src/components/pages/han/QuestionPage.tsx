@@ -1,11 +1,19 @@
-import { Text } from '../../atoms/Text';
-import Button from '../../atoms/Button';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import { testActions } from '../../../store/test-slice';
+import React from "react";
+import QuestionView from "../../blocks/QuestionDetail";
+import AnswerComment from "../../blocks/AnswerComment";
+import AddAnswer from "../../blocks/AddAnswer";
+import useScrollTop from "../../atoms/useScroll";
+import { useParams } from "react-router-dom";
 
 const QuestionPage = () => {
+<<<<<<< HEAD
+  useScrollTop();
+  return (
+    <>
+      <QuestionView />
+      <AnswerComment />
+      <AddAnswer />
+=======
   const dispatch = useDispatch();
   const testMessage = useSelector((state: RootState) => state.test.text);
 
@@ -48,6 +56,7 @@ const QuestionPage = () => {
         <Button onClick={testHandler1}>1</Button>
         <Button onClick={testHandler2}>2</Button>
       </div>
+>>>>>>> dev
     </>
   );
 };
