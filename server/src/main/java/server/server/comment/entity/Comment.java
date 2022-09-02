@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import server.server.post.entity.Post;
 import server.server.user.entity.User;
 
@@ -11,11 +12,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+
+@Entity(name = "Comment")
+@Table(name = "Comment")
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Comment {
 
     @Id
@@ -33,7 +38,6 @@ public class Comment {
 
     @Column
     private int userNumber;
-
 
     @OneToOne
     @JoinColumn(name = "userNumber", insertable = false, updatable = false)

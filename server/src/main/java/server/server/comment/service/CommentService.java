@@ -1,10 +1,13 @@
 package server.server.comment.service;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+
 import server.server.comment.entity.Comment;
 import server.server.comment.repository.CommentRepository;
 import server.server.exception.BusinessLogicException;
@@ -14,13 +17,17 @@ import server.server.post.entity.Post;
 import java.util.List;
 import java.util.Optional;
 
-
+@Transactional
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepository;
+
+
+    public Comment createComment(Comment comment) {
+        return commentRepository.save(comment);
 
     public List<Comment> findComments(int postNumber) {
         return commentRepository.findAllByPostNumber(postNumber);
@@ -39,4 +46,5 @@ public class CommentService {
 
         return findComment;
     }
+    
 }
