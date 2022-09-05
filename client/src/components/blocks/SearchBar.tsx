@@ -1,16 +1,15 @@
-import react, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { NavLink, useNavigate } from "react-router-dom";
+import react, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-import { TbSearch } from "react-icons/tb";
-import { IoClose } from "react-icons/io5";
-import { questionUrlActions } from "../../store/url-slice";
-import { SearchMenuActions } from "../../store/ui-slice/SearchMenu-slice";
+import { TbSearch } from 'react-icons/tb';
+import { IoClose } from 'react-icons/io5';
+import { SearchMenuActions } from '../../store/ui-slice/SearchMenu-slice';
 
 const SearchBar = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,32 +18,33 @@ const SearchBar = () => {
   );
 
   useEffect(() => {
-    searchOpen && document.getElementById("search")!.focus();
+    searchOpen &&
+      setTimeout(() => document.getElementById('search')!.focus(), 400);
   });
 
   const inputHandler = (e: react.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
-  const searchHandler = (e: react.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const afterSearch = () => {
     if (!text) return;
-    dispatch(questionUrlActions.setSearchSignal());
     dispatch(SearchMenuActions.close());
     navigate(`/questions/${text}`);
-    setText("");
+    setText('');
+    document.getElementById('search')!.blur();
+  };
+
+  const searchHandler = (e: react.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    afterSearch();
   };
 
   const searchButtonHandler = () => {
-    if (!text) return;
-    dispatch(questionUrlActions.setSearchSignal());
-    dispatch(SearchMenuActions.close());
-    navigate(`/questions/${text}`);
-    setText("");
+    afterSearch();
   };
 
   const clearHandler = () => {
-    setText("");
+    setText('');
   };
 
   return (
@@ -88,6 +88,31 @@ const StyledSearchBar = styled.div<{ open: boolean }>`
     props.open ? css`translateY(64px)` : css`translateY(0px)`};
 
   transition: transform 0.4s;
+
+  ${(props) =>
+    props.open
+      ? css`
+          animation: searchBarShow 0.4s ease forwards;
+        `
+      : css`
+          animation: searchBarHide 0.4s ease forwards;
+        `};
+
+  @keyframes searchBarHide {
+    0% {
+    }
+    100% {
+      visibility: hidden;
+    }
+  }
+
+  @keyframes searchBarShow {
+    0% {
+      visibility: visible;
+    }
+    100% {
+    }
+  }
 
   .search {
     text-align: center;

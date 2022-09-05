@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { hamburgerMenuActions } from "../../store/ui-slice/hamburgerMenu-slice";
-import { useEffect, useRef } from "react";
-import { RootState } from "../../store";
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { hamburgerMenuActions } from '../../store/ui-slice/hamburgerMenu-slice';
+import { useEffect, useRef } from 'react';
+import { RootState } from '../../store';
+import { SearchMenuActions } from '../../store/ui-slice/SearchMenu-slice';
 
 const HamburgerMenu = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const HamburgerMenu = () => {
 
   const changeState = () => {
     dispatch(hamburgerMenuActions.change(HamburgerMenuRef.current!.checked));
+    dispatch(SearchMenuActions.close());
   };
   return (
     <StyledHamburgerMenu>
@@ -35,11 +37,11 @@ const HamburgerMenu = () => {
 };
 
 const StyledHamburgerMenu = styled.div`
-  input[id="trigger"] {
+  input[id='trigger'] {
     display: none;
   }
 
-  label[for="trigger"] {
+  label[for='trigger'] {
     /* border: 1px solid red; */
     width: 25px;
     height: 15px;
@@ -47,7 +49,7 @@ const StyledHamburgerMenu = styled.div`
     position: relative;
     cursor: pointer;
   }
-  label[for="trigger"] span {
+  label[for='trigger'] span {
     display: block;
     height: 3px;
     background-color: ${({ theme }) => theme.mode.themeIcon};
@@ -57,28 +59,28 @@ const StyledHamburgerMenu = styled.div`
     transition: 0.3s;
   }
 
-  label[for="trigger"] span:nth-child(1) {
+  label[for='trigger'] span:nth-child(1) {
     top: 0;
   }
 
-  label[for="trigger"] span:nth-child(2) {
+  label[for='trigger'] span:nth-child(2) {
     top: 50%;
   }
 
-  label[for="trigger"] span:nth-child(3) {
+  label[for='trigger'] span:nth-child(3) {
     top: 100%;
   }
 
-  input[id="trigger"]:checked + label span:nth-child(1) {
+  input[id='trigger']:checked + label span:nth-child(1) {
     top: 50%;
     transform: rotate(45deg);
   }
 
-  input[id="trigger"]:checked + label span:nth-child(2) {
+  input[id='trigger']:checked + label span:nth-child(2) {
     opacity: 0;
   }
 
-  input[id="trigger"]:checked + label span:nth-child(3) {
+  input[id='trigger']:checked + label span:nth-child(3) {
     top: 50%;
     transform: rotate(-45deg);
   }

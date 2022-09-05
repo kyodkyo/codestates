@@ -1,25 +1,25 @@
-import styled from "styled-components";
-import React from "react";
-import { Text } from "../atoms/Text";
+import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { Text } from '../atoms/Text';
 
-import Comment from "../atoms/Comment";
+import Comment from '../atoms/Comment';
 
-const AnswerComment = () => {
+const AnswerComment = ({ comment }: any) => {
   return (
     <StyledContainer>
-      <StyledComentList>
+      <StyledCommentList>
         <div>
-          <Text>{data.length} Answer</Text>
+          <Text>{comment.length} Answer</Text>
         </div>
-        {data.map((el) => (
+        {comment.map((el: any) => (
           <Comment
-            key={el.postNumber}
-            title={el.contents}
-            user={el.user}
+            key={el.id}
+            title={el.comment}
+            user={el.commentUser}
             date={el.date}
           />
         ))}
-      </StyledComentList>
+      </StyledCommentList>
     </StyledContainer>
   );
 };
@@ -31,7 +31,7 @@ const StyledContainer = styled.div`
   justify-content: center;
 `;
 
-const StyledComentList = styled.div`
+const StyledCommentList = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,24 +44,24 @@ const StyledComentList = styled.div`
 const data = [
   {
     postNumber: 1,
-    user: "this is name",
-    date: "2022-08-26 18:55:02",
-    title: "질문입니다",
+    user: 'this is name',
+    date: '2022-08-26 18:55:02',
+    title: '질문입니다',
     contents:
-      "<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기",
+      '<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기<내용test아주 긴 내용 축약해보기',
   },
   {
     postNumber: 2,
-    user: "jack",
-    date: "2022-08-26 18:55:02",
-    title: "백엔드는 너무 어려워요",
-    contents: "완전 짱짱",
+    user: 'jack',
+    date: '2022-08-26 18:55:02',
+    title: '백엔드는 너무 어려워요',
+    contents: '완전 짱짱',
   },
   {
     postNumber: 3,
-    user: "ji yeong jun",
-    date: "2022-08-26 18:55:02",
-    title: "이게 맞나 싶어요",
-    contents: "돔황챠!",
+    user: 'ji yeong jun',
+    date: '2022-08-26 18:55:02',
+    title: '이게 맞나 싶어요',
+    contents: '돔황챠!',
   },
 ];

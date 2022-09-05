@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface IText {
   textColor?: string;
@@ -18,5 +18,5 @@ export const Text = styled.span<IText>`
   font-weight: ${({ theme, fontWeight }) =>
     (fontWeight && theme.fontWeights[fontWeight]) || theme.fontWeights.regular};
   line-height: ${({ lineHeight }) => lineHeight};
-  cursor: ${({ isClick }) => (isClick ? "pointer" : "default")};
+  cursor: ${({ isClick }) => (isClick ? 'pointer' : 'default')};
 `;

@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const hamburgerMenuSlice = createSlice({
-  name: "sideMenu",
+  name: 'sideMenu',
   initialState: {
     closed: false,
     checked: false,

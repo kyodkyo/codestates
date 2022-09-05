@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
   // css 초기값 정의
@@ -14,12 +14,12 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     margin: 0;
-    background-color: ${({ theme }) => theme.mode.mainBackground};
   }
 
   html, body {
     font-family: sans-serif;
     height: 100%;
+    background-color: ${({ theme }) => theme.mode.mainBackground};
   }
 
   .app {
@@ -27,6 +27,10 @@ const GlobalStyles = createGlobalStyle`
     flex-direction: column;
     height: 100%;
     min-height: 100vh;
+  }
+  
+  .chakra-portal {
+    background-color: ${({ theme }) => theme.mode.mainBackground};
   }
 
 `;

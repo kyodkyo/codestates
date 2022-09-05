@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Card from "./Card";
-import { media } from "../../style/media";
-import { Text } from "./Text";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import styled from 'styled-components';
+import Card from './Card';
+import { media } from '../../style/media';
+import { Text } from './Text';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ interface Props {
 const getKST = (date: string) => {
   const newDate = new Date(date);
   //newDate.setHours(newDate.getHours() + 9);
-  return newDate.toISOString().replace("T", " ").substring(0, 19);
+  return newDate.toISOString().replace('T', ' ').substring(0, 19);
 };
 
 const Question = ({ title, user, date }: Props) => {
@@ -68,7 +68,7 @@ const StyledQuestion = styled(Card)`
   .big {
     display: block;
 
-    ${media.custom("992px")} {
+    ${media.custom('992px')} {
       display: none;
     }
   }
@@ -76,7 +76,7 @@ const StyledQuestion = styled(Card)`
   .small {
     display: none;
 
-    ${media.custom("992px")} {
+    ${media.custom('992px')} {
       display: block;
     }
   }
