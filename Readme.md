@@ -1,20 +1,58 @@
-# My Todo App
+#  My StackOverFlow 
 
-Todo 관리를 위한 웹 애플리케이션입니다.
+<div align="center">   
+<!--     <img src="" width="280px"/> -->
+    <h3>Team30 !!</h3>
+</div>
 
-## Features
+## 💻 배포 주소
 
-- 편리한 UI로 Todo를 쉽게 생성하고 삭제할 수 있습니다.
-- Todo에 기한과 카테고리를 설정할 수 있습니다.
-- create-react-app으로 간편한 번들링과 배포가 가능합니다.
-- Spring Boot로 쉽게 서버 배포를 할 수 있습니다.
+> 링크 http://pre-project-team30.s3-website.ap-northeast-2.amazonaws.com/
 
-## Contributors
 
-- FE: 김코딩, 박해커
-- BE: 나서버, 최디비
 
-## Project Wiki
 
-프로젝트 팀 정보, 기획, 아키텍쳐에 대한 자세한 안내입니다.
-(링크)
+    
+## 👥 팀원 소개
+
+
+
+[강다교](https://github.com/)  [지영준](https://github.com/)  [최진아](https://github.com/)  [한상준](https://github.com/)
+
+
+## 💻 프로젝트 소개
+
+```
+
+```
+
+<div align="center">
+<img src="" height="160" />
+</div>
+
+
+
+
+
+### 📂 프로젝트 관련 문서
+
+```
+
+```
+
+[📑 요구사항 정의서](https://scratched-skateboard-57f.notion.site/e9f42982388342228d551a148425f89b)
+
+[📡 API 명세서](https://scratched-skateboard-57f.notion.site/API-70af18a497184009a0d4d3edc1a148b9)
+
+[🗒 Notion 회의록](https://scratched-skateboard-57f.notion.site/9d7eb0218dd247e89a395d87a0c0d65b)
+
+[💻 개발 일지](https://scratched-skateboard-57f.notion.site/ce779274e4ca4c068a2de3e4b911e07b?v=8bc2da650aac44a0a244ac550f3a2d27)
+
+    
+### 기술 스택
+
+```
+프로젝트에 사용된 기술스택 목록입니다.
+```
+
+
