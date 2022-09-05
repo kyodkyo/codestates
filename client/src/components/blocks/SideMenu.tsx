@@ -1,17 +1,25 @@
-import styled, { css } from "styled-components";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { media } from "../../style/media";
-import { hamburgerMenuActions } from "../../store/ui-slice/hamburgerMenu-slice";
+import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { media } from '../../style/media';
+import { hamburgerMenuActions } from '../../store/ui-slice/hamburgerMenu-slice';
+import { loginActions } from '../../store/ui-slice/login-slice';
 
 const SideMenu = () => {
   const open = useSelector((state: RootState) => state.hamburgerMenu.checked);
   const dispatch = useDispatch();
-  const menus = [
-    { name: "HOME", path: "/" },
-    { name: "QUESTIONS", path: "/questions" },
-  ];
+  const login = useSelector((state: RootState) => state.login.email);
+  const menus = login
+    ? [
+        { name: 'QUESTIONS', path: '/questions' },
+        { name: 'LOGOUT', path: '/' },
+      ]
+    : [
+        { name: 'QUESTIONS', path: '/questions' },
+        { name: 'LOGIN', path: '/login' },
+        { name: 'SIGN UP', path: '/sign-up' },
+      ];
 
   const sideMenuHandler = () => {
     dispatch(hamburgerMenuActions.close());
@@ -21,6 +29,18 @@ const SideMenu = () => {
     <StyledSideMenu open={open}>
       <div className="margin"></div>
       {menus.map((menu, index) => {
+        if (menu.name === 'LOGOUT') {
+          return (
+            <li className="menu" key={index} onClick={sideMenuHandler}>
+              <NavStyle
+                onClick={() => dispatch(loginActions.logout())}
+                to={menu.path}
+              >
+                {menu.name}
+              </NavStyle>
+            </li>
+          );
+        }
         return (
           <li className="menu" key={index} onClick={sideMenuHandler}>
             <NavStyle to={menu.path}>{menu.name}</NavStyle>
@@ -44,7 +64,7 @@ const StyledSideMenu = styled.ul<{ open: boolean }>`
   display: none;
   z-index: 1000;
 
-  ${media.custom("768px")} {
+  ${media.custom('768px')} {
     display: block;
   }
 

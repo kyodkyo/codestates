@@ -3,7 +3,7 @@ import {
   ToastId,
   useToast,
   UseToastOptions,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface UseCustomToast {
   (options?: UseToastOptions | undefined): string | number | undefined;
@@ -20,7 +20,7 @@ interface UseCustomToast {
 export function useCustomToast(): UseCustomToast {
   return useToast({
     isClosable: true,
-    variant: "subtle",
-    position: "top",
+    variant: 'subtle',
+    position: 'top',
   });
 }

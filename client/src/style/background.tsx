@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const BackGround = styled.section`
   background-color: ${({ theme }) => theme.mode.mainBackground};

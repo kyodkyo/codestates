@@ -1,16 +1,18 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import styled from "styled-components";
-import { media } from "../../style/media";
-import { Text } from "../atoms/Text";
-import DarkModeButton from "../atoms/DarkModeButton";
-import { TbSearch } from "react-icons/tb";
-import { MdOutlineClose } from "react-icons/md";
-import HamburgerMenu from "../atoms/HamburgerMenu";
-import { useDispatch, useSelector } from "react-redux";
-import { SearchMenuActions } from "../../store/ui-slice/SearchMenu-slice";
-import { RootState } from "../../store";
+import styled from 'styled-components';
+import { media } from '../../style/media';
+import { Text } from '../atoms/Text';
+import DarkModeButton from '../atoms/DarkModeButton';
+import { TbSearch } from 'react-icons/tb';
+import { MdOutlineClose } from 'react-icons/md';
+import HamburgerMenu from '../atoms/HamburgerMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchMenuActions } from '../../store/ui-slice/SearchMenu-slice';
+import { RootState } from '../../store';
+import { hamburgerMenuActions } from '../../store/ui-slice/hamburgerMenu-slice';
+import { loginActions } from '../../store/ui-slice/login-slice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -18,18 +20,43 @@ const Header = () => {
     (state: RootState) => state.searchMenu.clicked
   );
 
+  const login = useSelector((state: RootState) => state.login.email);
+
   const searchButtonHandler = () => {
     dispatch(SearchMenuActions.change());
+    dispatch(hamburgerMenuActions.close());
   };
 
-  const menus = [
-    { name: "QUESTIONS", path: "/questions" },
-    { name: "개별질문창(임시)", path: "/question" },
-  ].map((menu, idx) => (
-    <li className="menu" key={idx}>
-      <NavStyle to={menu.path}>{menu.name}</NavStyle>
-    </li>
-  ));
+  const menuItem = login
+    ? [
+        { name: 'QUESTIONS', path: '/questions' },
+        { name: 'LOGOUT', path: '/' },
+      ]
+    : [
+        { name: 'QUESTIONS', path: '/questions' },
+        { name: 'LOGIN', path: '/login' },
+        { name: 'SIGN UP', path: '/sign-up' },
+      ];
+
+  const menus = menuItem.map((menu, idx) => {
+    if (menu.name === 'LOGOUT') {
+      return (
+        <li
+          className="menu"
+          key={idx}
+          onClick={() => dispatch(loginActions.logout())}
+        >
+          <NavStyle to={menu.path}>{menu.name}</NavStyle>
+        </li>
+      );
+    } else {
+      return (
+        <li className="menu" key={idx}>
+          <NavStyle to={menu.path}>{menu.name}</NavStyle>
+        </li>
+      );
+    }
+  });
 
   return (
     <StyledHeader open={searchOpen}>
@@ -86,7 +113,7 @@ const StyledHeader = styled.header<{ open: boolean }>`
     display: block;
     cursor: pointer;
 
-    ${media.custom("768px")} {
+    ${media.custom('768px')} {
       display: none;
     }
   }
@@ -100,7 +127,7 @@ const StyledHeader = styled.header<{ open: boolean }>`
     display: block;
     margin-top: 2px;
 
-    ${media.custom("768px")} {
+    ${media.custom('768px')} {
       display: none;
     }
   }
@@ -125,7 +152,7 @@ const StyledHeader = styled.header<{ open: boolean }>`
   .hamburger-menu {
     display: none;
 
-    ${media.custom("768px")} {
+    ${media.custom('768px')} {
       display: block;
     }
   }
@@ -141,11 +168,11 @@ const StyledHeader = styled.header<{ open: boolean }>`
     }
 
     .search {
-      display: ${(props) => (props.open ? "none" : "block")};
+      display: ${(props) => (props.open ? 'none' : 'block')};
     }
 
     .close {
-      display: ${(props) => (props.open ? "block" : "none")};
+      display: ${(props) => (props.open ? 'block' : 'none')};
     }
   }
 `;
@@ -155,7 +182,7 @@ const NavStyle = styled(NavLink)`
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 
   &::after {
-    content: "";
+    content: '';
     display: block;
     width: 0;
     height: 2px;

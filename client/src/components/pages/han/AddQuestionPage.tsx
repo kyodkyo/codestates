@@ -1,40 +1,35 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../../atoms/Button";
-import styled from "styled-components";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
-import axios from "axios";
-import { Text } from "../../atoms/Text";
-import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
-import { useAddQuestion } from "../../../react-query/hooks/addQuestionPage/useAddQuestion";
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../atoms/Button';
+import styled from 'styled-components';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+import axios from 'axios';
+import { Text } from '../../atoms/Text';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { useAddQuestion } from '../../../react-query/hooks/addQuestionPage/useAddQuestion';
 
 const AddQuestionPage = () => {
   const mode = useSelector((state: RootState) => state.darkMode.mode) as string;
-  const navigate = useNavigate();
-  const [title, setTitle] = useState<any>("");
-  const [body, setBody] = useState<any>("");
-  const [author, setAuthor] = useState<string>("");
+  const [title, setTitle] = useState<any>('');
+  const [body, setBody] = useState<any>('');
+  const [author, setAuthor] = useState<string>('');
 
   const editorRef = useRef<any>();
 
   const addQuestion = useAddQuestion();
 
-  // 제목 , 내용 post요청하기
-  const submit = async () => {
-    const { data } = await axios.post("http://localhost:3001/que", {
-      title,
-      body,
-      author,
-    });
-
-    alert("작성완료");
-    setTitle("");
-    setBody("");
-    navigate("/");
+  const toggleDarkMode = () => {
+    const el = document.getElementsByClassName('toastui-editor-defaultUI')[0];
+    if (mode === 'light') el.classList.remove('toastui-editor-dark');
+    else el.classList.add('toastui-editor-dark');
   };
+
+  useEffect(() => {
+    toggleDarkMode();
+  }, [mode]);
 
   // toast ui 내용 가져와서 body에 저장하기
   const handleChangeInput = () => {
@@ -93,17 +88,16 @@ const AddQuestionPage = () => {
             onChange={handleChangeInput}
             placeholder="내용을 입력해주세요."
             initialValue=" "
-            theme={mode === "dark" ? "dark" : ""}
             previewStyle="vertical" // 미리보기 스타일 지정
             height="auto" // 에디터 창 높이
             initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
             toolbarItems={[
               // 툴바 옵션 설정
-              ["heading", "bold", "italic", "strike"],
-              ["hr", "quote"],
-              ["ul", "ol", "task", "indent", "outdent"],
-              ["table", "image", "link"],
-              ["code", "codeblock"],
+              ['heading', 'bold', 'italic', 'strike'],
+              ['hr', 'quote'],
+              ['ul', 'ol', 'task', 'indent', 'outdent'],
+              ['table', 'image', 'link'],
+              ['code', 'codeblock'],
             ]}
           ></Editor>
           <div className="btn--div">

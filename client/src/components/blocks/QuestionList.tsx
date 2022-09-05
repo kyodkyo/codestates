@@ -1,29 +1,23 @@
-import styled from "styled-components";
-import Question from "../atoms/Question";
-import React, { useEffect, useState } from "react";
-import { Text } from "../atoms/Text";
-import { NavLink, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { questionUrlActions } from "../../store/url-slice";
-import Button from "../atoms/Button";
-import { RootState } from "../../store";
-import { useQuestions } from "../../react-query/hooks/questionsPage/useQuestions";
-import { media } from "../../style/media";
+import styled from 'styled-components';
+import Question from '../atoms/Question';
+import React, { useEffect, useState } from 'react';
+import { Text } from '../atoms/Text';
+import { NavLink, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../atoms/Button';
+import { RootState } from '../../store';
+import { useQuestions } from '../../react-query/hooks/questionsPage/useQuestions';
+import { media } from '../../style/media';
 
 const QuestionList = () => {
-  const dispatch = useDispatch();
   const { questions, searchWord, setSearchWord } = useQuestions();
   const searchSignal = useSelector(
     (state: RootState) => state.url.searchSignal
   );
   const params = useParams();
 
-  const linkHandler = (url: number) => {
-    dispatch(questionUrlActions.setQuestionId(url));
-  };
-
   useEffect(() => {
-    setSearchWord((params.searchWord as string) || "");
+    setSearchWord((params.searchWord as string) || '');
   }, [searchSignal, params.searchWord]);
 
   return (
@@ -46,11 +40,7 @@ const QuestionList = () => {
       </div>
       <div className="search-result"></div>
       {questions.map((el) => (
-        <NavLink
-          key={el.postNumber}
-          to={`/question/${el.postNumber}`}
-          onClick={() => linkHandler(el.postNumber)}
-        >
+        <NavLink key={el.postNumber} to={`/question/${el.postNumber}`}>
           <Question title={el.title} user={el.user.userId} date={el.date} />
         </NavLink>
       ))}
@@ -68,7 +58,7 @@ const StyledQuestionList = styled.div`
   margin: 10px;
   width: 60%;
 
-  ${media.custom("768px")} {
+  ${media.custom('768px')} {
     width: 100%;
   }
 

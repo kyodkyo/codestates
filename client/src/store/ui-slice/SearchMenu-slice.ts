@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const SearchMenuSlice = createSlice({
-  name: "SearchMenu",
+  name: 'SearchMenu',
   initialState: {
     closed: false,
     clicked: false,

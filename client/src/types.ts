@@ -4,10 +4,7 @@ export interface Id {
 
 export interface NewUser {
   email: string;
-  name?: string;
-  address?: string;
-  phone?: string;
-  token?: string;
+  pw: string;
 }
 
 export type User = Id & NewUser;

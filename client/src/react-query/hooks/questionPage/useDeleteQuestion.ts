@@ -1,15 +1,15 @@
-import { UseMutateFunction, useMutation, useQueryClient } from "react-query";
+import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
 
-import { axiosInstance } from "../../../axiosInstance";
-import { queryKeys } from "../../constants";
+import { axiosInstance } from '../../../axiosInstance';
+import { queryKeys } from '../../constants';
 
-import { useCustomToast } from "../../../chakra/useCustomToast";
-import { useNavigate } from "react-router-dom";
+import { useCustomToast } from '../../../chakra/useCustomToast';
+import { useNavigate } from 'react-router-dom';
 
 const deleteQuestion = async (
   postNumber: string | undefined
 ): Promise<void> => {
-  await axiosInstance.delete(`post/questions/${postNumber}`);
+  await axiosInstance.delete(`post/questions/delete/${postNumber}`);
 };
 
 export const useDeleteQuestion = (): UseMutateFunction<
@@ -27,10 +27,10 @@ export const useDeleteQuestion = (): UseMutateFunction<
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKeys.questions);
-        navigate("/questions");
+        navigate('/questions');
         toast({
-          title: "질문 삭제가 완료되었습니다.",
-          status: "warning",
+          title: '질문 삭제가 완료되었습니다.',
+          status: 'warning',
         });
       },
     }
