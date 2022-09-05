@@ -1,9 +1,12 @@
-import styled from "styled-components";
-import Card from "./Card";
-import { media } from "../../style/media";
-import { Text } from "./Text";
-import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import { Viewer } from "@toast-ui/react-editor";
+import styled from 'styled-components';
+import Card from './Card';
+import { media } from '../../style/media';
+import { Text } from './Text';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { Viewer } from '@toast-ui/react-editor';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useEffect } from 'react';
 
 interface Props {
   title: string;
@@ -11,35 +14,46 @@ interface Props {
   date: string;
 }
 
-// 날짜 변환 로직
-// const getKST = (date: string) => {
-//   const newDate = new Date(date);
-//   newDate.setHours(newDate.getHours() + 9);
-//   return newDate.toISOString().replace('T', ' ').substring(0, 16);
-// };
+const getKST = (date: string) => {
+  const newDate = new Date(date);
+  newDate.setHours(newDate.getHours() + 9);
+  return newDate.toISOString().replace('T', ' ').substring(0, 19);
+};
 
 const Comment = ({ title, user, date }: Props) => {
-  const html = "답변 내용";
-
+  const mode = useSelector((state: RootState) => state.darkMode.mode) as string;
   const deleteOnClick = () => {
-    console.log("삭제");
+    console.log('코멘트 삭제');
   };
+
+  const toggleDarkMode = () => {
+    const dark = document.getElementsByClassName('toastui-editor-dark')[0];
+    const light = document.getElementsByClassName('toastui-editor-l')[0];
+    if (mode === 'light' && dark) {
+      dark.classList.remove('toastui-editor-dark');
+      dark.classList.add('toastui-editor-l');
+    } else if (mode === 'dark' && light) {
+      light.classList.remove('toastui-editor-l');
+      light.classList.add('toastui-editor-dark');
+    }
+  };
+
+  useEffect(() => {
+    toggleDarkMode();
+  }, [mode]);
 
   return (
     <StyledComment>
       <div>
         <Text>
-          <Viewer initialValue={html} />
+          <Viewer initialValue={title} theme={mode === 'dark' ? 'dark' : 'l'} />
         </Text>
       </div>
       <span className="info">
         <Text className="user">{user}</Text>
-        <Text>{date}</Text>
+        <Text>{getKST(date)}</Text>
       </span>
       <div className="edit">
-        {/* <span>
-          <Text>Edit</Text>
-        </span> */}
         <span className="delete" onClick={deleteOnClick}>
           <Text>Delete</Text>
         </span>
@@ -80,7 +94,7 @@ const StyledComment = styled(Card)`
   .big {
     display: block;
 
-    ${media.custom("992px")} {
+    ${media.custom('992px')} {
       display: none;
     }
   }
@@ -88,7 +102,7 @@ const StyledComment = styled(Card)`
   .small {
     display: none;
 
-    ${media.custom("992px")} {
+    ${media.custom('992px')} {
       display: block;
     }
   }

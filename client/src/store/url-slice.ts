@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const urlSlice = createSlice({
-  name: "questionUrl",
+  name: 'questionUrl',
   initialState: {
     questionId: 0,
     searchSignal: false,

@@ -1,81 +1,58 @@
-import React, { useState } from "react";
-import Button from "../atoms/Button";
-import styled from "styled-components";
-import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import { Viewer } from "@toast-ui/react-editor";
-import { NavLink, useNavigate } from "react-router-dom";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
-import { Editor } from "@toast-ui/react-editor";
-import { Text } from "../atoms/Text";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import React, { useEffect, useState } from 'react';
+import Button from '../atoms/Button';
+import styled from 'styled-components';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { Viewer } from '@toast-ui/react-editor';
+import { NavLink, useNavigate } from 'react-router-dom';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+import { Editor } from '@toast-ui/react-editor';
+import { Text } from '../atoms/Text';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
-import { useDeleteQuestion } from "../../react-query/hooks/questionPage/useDeleteQuestion";
-import { useParams } from "react-router-dom";
+import { useDeleteQuestion } from '../../react-query/hooks/questionPage/useDeleteQuestion';
+import { useParams } from 'react-router-dom';
 
-const QuestionView = () => {
+interface Question {
+  title: string;
+  contents: string;
+}
+// class="toastui-editor-dark"
+// class="toastui-editor-l"
+
+const QuestionView = ({ title, contents }: Question) => {
   const [isEditing, setIsEditing] = useState(true);
   const mode = useSelector((state: RootState) => state.darkMode.mode) as string;
 
   const deleteQuestion = useDeleteQuestion();
   const params = useParams();
 
-  const html =
-    "```\n" +
-    'const app = "hello world";\n' +
-    "\n" +
-    'import { Dispatch, SetStateAction, useCallback, useState } from "react";\n' +
-    'import { useQuery } from "react-query";\n' +
-    "\n" +
-    'import type { Question } from "../../../types";\n' +
-    'import { axiosInstance } from "../../../axiosInstance";\n' +
-    'import { queryKeys } from "../../constants";\n' +
-    'import { filterByQuestion } from "../../util";\n' +
-    "\n" +
-    "const getQuestions = async (): Promise<Question[]> => {\n" +
-    "  const { data } = await axiosInstance.get(`/questions`);\n" +
-    "  return data;\n" +
-    "};\n" +
-    "\n" +
-    "interface UseQuestions {\n" +
-    "  questions: Question[];\n" +
-    "  searchWord: string;\n" +
-    "  setSearchWord: Dispatch<SetStateAction<string>>;\n" +
-    "}\n" +
-    "\n" +
-    "export const useQuestions = (): UseQuestions => {\n" +
-    '  const [searchWord, setSearchWord] = useState("all");\n' +
-    "\n" +
-    "  const selectFn = useCallback(\n" +
-    "    (questions: Question[]) => filterByQuestion(questions, searchWord),\n" +
-    "    [searchWord]\n" +
-    "  );\n" +
-    "\n" +
-    "  const fallback: any[] = [];\n" +
-    "  const { data: questions = fallback } = useQuery(\n" +
-    "    queryKeys.questions,\n" +
-    "    getQuestions,\n" +
-    "    {\n" +
-    '      select: searchWord !== "all" ? selectFn : undefined,\n' +
-    "    }\n" +
-    "  );\n" +
-    "\n" +
-    "  return { questions, searchWord, setSearchWord };\n" +
-    "};\n" +
-    "\n" +
-    "```\n" +
-    "누가 위 코드좀 알려주세요!`제발!!`";
+  const toggleDarkMode = () => {
+    const dark = document.getElementsByClassName('toastui-editor-dark')[0];
+    const light = document.getElementsByClassName('toastui-editor-l')[0];
+    if (mode === 'light' && dark) {
+      dark.classList.remove('toastui-editor-dark');
+      dark.classList.add('toastui-editor-l');
+    } else if (mode === 'dark' && light) {
+      light.classList.remove('toastui-editor-l');
+      light.classList.add('toastui-editor-dark');
+    }
+  };
+
+  useEffect(() => {
+    toggleDarkMode();
+  }, [mode]);
 
   if (isEditing) {
     return (
       <StyledView>
         <div className="title--container">
           <h2 className="title">
-            <Text fontSize="xl">여기에 제목이 들어갑니다!</Text>
+            <Text fontSize="xl">{title}</Text>
           </h2>
           <NavLink to="/add-question">
-            <Button bold="bold" paddingSize="0px 10px">
+            <Button className="add-button" bold="bold" paddingSize="0px 10px">
               Ask Question
             </Button>
           </NavLink>
@@ -83,8 +60,8 @@ const QuestionView = () => {
         <div className="body--container">
           <div className="body">
             <Viewer
-              initialValue={html}
-              theme={mode === "dark" ? "dark" : "l"}
+              initialValue={contents}
+              theme={mode === 'dark' ? 'dark' : 'l'}
             />
           </div>
           <div className="edit" onClick={() => setIsEditing}>
@@ -144,11 +121,11 @@ const QuestionView = () => {
               initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
               toolbarItems={[
                 // 툴바 옵션 설정
-                ["heading", "bold", "italic", "strike"],
-                ["hr", "quote"],
-                ["ul", "ol", "task", "indent", "outdent"],
-                ["table", "image", "link"],
-                ["code", "codeblock"],
+                ['heading', 'bold', 'italic', 'strike'],
+                ['hr', 'quote'],
+                ['ul', 'ol', 'task', 'indent', 'outdent'],
+                ['table', 'image', 'link'],
+                ['code', 'codeblock'],
               ]}
             ></Editor>
             <div className="btn--div">
@@ -176,6 +153,9 @@ const StyledView = styled.div`
   max-width: 800px;
   margin: 0 auto;
 
+  .add-button {
+    width: 130px;
+  }
   Button {
     height: 35px;
   }
@@ -213,7 +193,6 @@ const StyledView = styled.div`
   }
 
   .miniButton span {
-    margin-top: 3px;
     cursor: pointer;
   }
 

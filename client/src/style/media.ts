@@ -1,15 +1,15 @@
 const customMediaQuery = (env: string): string => {
   switch (env) {
-    case "bigDesktop":
-      return "@media (min-width: 1200px)";
-    case "desktop":
-      return "@media (min-width: 992px) and (max-width: 1199px)";
-    case "tablet":
-      return "@media (min-width: 768px) and (max-width: 991px)";
-    case "mobile":
-      return "@media (min-width: 576px) and (max-width: 767px)";
-    case "smallMobile":
-      return "@media (max-width: 575px)";
+    case 'bigDesktop':
+      return '@media (min-width: 1200px)';
+    case 'desktop':
+      return '@media (min-width: 992px) and (max-width: 1199px)';
+    case 'tablet':
+      return '@media (min-width: 768px) and (max-width: 991px)';
+    case 'mobile':
+      return '@media (min-width: 576px) and (max-width: 767px)';
+    case 'smallMobile':
+      return '@media (max-width: 575px)';
 
     default:
       return `@media (max-width: ${env})`;
@@ -18,11 +18,11 @@ const customMediaQuery = (env: string): string => {
 
 const media = {
   custom: customMediaQuery,
-  bigDesktop: customMediaQuery("bigDesktop"),
-  desktop: customMediaQuery("desktop"),
-  tablet: customMediaQuery("tablet"),
-  mobile: customMediaQuery("mobile"),
-  smallMobile: customMediaQuery("smallMobile"),
+  bigDesktop: customMediaQuery('bigDesktop'),
+  desktop: customMediaQuery('desktop'),
+  tablet: customMediaQuery('tablet'),
+  mobile: customMediaQuery('mobile'),
+  smallMobile: customMediaQuery('smallMobile'),
 };
 
 export { media };

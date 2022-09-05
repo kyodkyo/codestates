@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient, UseMutateFunction } from "react-query";
+import { useMutation, useQueryClient, UseMutateFunction } from 'react-query';
 
-import { axiosInstance } from "../../../axiosInstance";
-import { queryKeys } from "../../constants";
-import { useCustomToast } from "../../../chakra/useCustomToast";
+import { axiosInstance } from '../../../axiosInstance';
+import { queryKeys } from '../../constants';
+import { useCustomToast } from '../../../chakra/useCustomToast';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 interface TempAddQuestion {
   userNumber: number;
@@ -19,7 +19,7 @@ const addQuestion = async (question: TempAddQuestion): Promise<void> => {
     contents: question.contents,
   };
 
-  await axiosInstance.post("/post", postData);
+  await axiosInstance.post('/post', postData);
 };
 
 export const useAddQuestion = (): UseMutateFunction<
@@ -39,8 +39,8 @@ export const useAddQuestion = (): UseMutateFunction<
         queryClient.invalidateQueries(queryKeys.questions);
         navigate(-1);
         toast({
-          title: "질문 등록이 완료되었습니다.",
-          status: "success",
+          title: '질문 등록이 완료되었습니다.',
+          status: 'success',
         });
       },
     }
