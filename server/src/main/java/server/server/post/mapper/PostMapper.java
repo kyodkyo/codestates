@@ -14,6 +14,7 @@ import server.server.post.entity.Post;
 public interface PostMapper {
 
     Post postRequestToPost(PostRequestDto postDto);
+
     PostResponseDto postToPostResponse(Post post);
 
 }

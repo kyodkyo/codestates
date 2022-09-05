@@ -13,23 +13,27 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "post")
 @Table(name = "post")
+@Entity(name = "post")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int postNumber;
+
     @Column
     private int userNumber;
+
     @Column
     private Timestamp date = Timestamp.valueOf(LocalDateTime.now());
+
     @Column
     private String title;
+
     @Column
     private String contents;
 

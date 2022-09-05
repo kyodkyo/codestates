@@ -2,7 +2,6 @@ package server.server.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import server.server.comment.entity.Comment;
 
 import javax.persistence.*;
 
@@ -34,4 +33,5 @@ public class User {
 //    @OneToOne
 //    @JoinColumn(name = "user_number")
 //    private Comment comment;
+
 }
