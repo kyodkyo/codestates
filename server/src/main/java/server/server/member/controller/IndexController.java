@@ -1,18 +1,23 @@
 package server.server.member.controller;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import server.server.config.auth.PrincipalDetails;
@@ -55,7 +60,9 @@ public class IndexController {
 
     @GetMapping("/user")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+
         System.out.println(principalDetails.getUser());
+
         return "user";
     }
 
@@ -80,6 +87,7 @@ public class IndexController {
     }
 
     @PostMapping("/join")
+
     public String join(User user) {
         user.setRole("ROLE_USER");
         String rawPassword = user.getUserPw();
@@ -102,6 +110,7 @@ public class IndexController {
         System.out.println("============/loginTest===========");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         System.out.println("authentication : " + principalDetails.getUser());
+
         return "세션 정보 확인";
     }
 
@@ -109,6 +118,7 @@ public class IndexController {
     public @ResponseBody String loginTest2(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println("============/loginTest2===========");
         System.out.println("userDetails : " + principalDetails.getUser());
+
         return "세션 정보 확인2";
     }
 
