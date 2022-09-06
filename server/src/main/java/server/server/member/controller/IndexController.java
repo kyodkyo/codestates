@@ -1,19 +1,30 @@
 package server.server.member.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import server.server.config.auth.PrincipalDetails;
-import server.server.member.entity.Member;
-import server.server.member.repository.MemberRepository;
+import server.server.config.oauth.PrincipalOauth2UserService;
+import server.server.user.entity.User;
+import server.server.user.repository.UserRepository;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -21,7 +32,18 @@ public class IndexController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
+
+    private final PrincipalOauth2UserService principalOauth2UserService;
+
+    @PostMapping ("/callback")
+    public ResponseEntity loginUser(@RequestBody OAuth2UserRequest oAuth2UserRequest){
+
+        OAuth2User user = principalOauth2UserService.loadUser(oAuth2UserRequest);
+
+        return new ResponseEntity(user.getAttributes(), HttpStatus.OK);
+    }
+
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
@@ -38,7 +60,9 @@ public class IndexController {
 
     @GetMapping("/user")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println(principalDetails.getMember());
+
+        System.out.println(principalDetails.getUser());
+
         return "user";
     }
 
@@ -63,13 +87,14 @@ public class IndexController {
     }
 
     @PostMapping("/join")
-    public String join(Member member) {
-        member.setRole("ROLE_USER");
-        String rawPassword = member.getPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setPassword(encPassword);
 
-        memberRepository.save(member);
+    public String join(User user) {
+        user.setRole("ROLE_USER");
+        String rawPassword = user.getUserPw();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        user.setUserPw(encPassword);
+
+        userRepository.save(user);
 
         return "redirect:/login";
     }
@@ -84,14 +109,16 @@ public class IndexController {
     public @ResponseBody String loginTest(Authentication authentication) {
         System.out.println("============/loginTest===========");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        System.out.println("authentication : " + principalDetails.getMember());
+        System.out.println("authentication : " + principalDetails.getUser());
+
         return "세션 정보 확인";
     }
 
     @GetMapping("/loginTest2")
     public @ResponseBody String loginTest2(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println("============/loginTest2===========");
-        System.out.println("userDetails : " + principalDetails.getMember());
+        System.out.println("userDetails : " + principalDetails.getUser());
+
         return "세션 정보 확인2";
     }
 

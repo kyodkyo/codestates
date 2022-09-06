@@ -7,14 +7,17 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import server.server.config.auth.PrincipalDetails;
-import server.server.member.entity.Member;
-import server.server.member.repository.MemberRepository;
+
+import server.server.user.entity.User;
+import server.server.user.repository.UserRepository;
+
 
 @Service
 @RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -25,23 +28,24 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String providerId = oauth2User.getAttribute("sub");
         String username = oauth2User.getAttribute("name");
         String email = oauth2User.getAttribute("email");
-        String role = "ROSE_USER";
+        String role = "ROLE_USER";
 
-        Member memberEntity = memberRepository.findByUsername(username);
+        User userEntity = userRepository.findByUserId(username);
 
-        if(memberEntity == null) {
+        if(userEntity == null) {
             // OAuth로 처음 로그인한 유저 - 회원가입 처리
-            memberEntity = Member.builder()
-                    .username(username)
+            userEntity = User.builder()
+                    .userId(username)
                     .email(email)
                     .role(role)
                     .provider(provider)
                     .providerId(providerId)
                     .build();
-            memberRepository.save(memberEntity);
+
+            userRepository.save(userEntity);
         }
 
-        return new PrincipalDetails(memberEntity, oauth2User.getAttributes());
+        return new PrincipalDetails(userEntity, oauth2User.getAttributes());
     }
 
 }

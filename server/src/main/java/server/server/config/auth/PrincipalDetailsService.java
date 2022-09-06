@@ -6,21 +6,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import server.server.member.entity.Member;
-import server.server.member.repository.MemberRepository;
+
+import server.server.user.entity.User;
+import server.server.user.repository.UserRepository;
+
 
 @Service
 @RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member memberEntity = memberRepository.findByUsername(username);
+        User userEntity = userRepository.findByUserId(username);
         System.out.println("username : " + username);
-        if(memberEntity != null) {
-            return new PrincipalDetails(memberEntity);
+        if(userEntity != null) {
+            return new PrincipalDetails(userEntity);
         }
         return null;
     }
