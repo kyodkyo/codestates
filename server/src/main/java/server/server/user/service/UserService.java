@@ -42,30 +42,32 @@ public class UserService {
     }
 
 
-    public ResponseEntity findUser(String userId) {
-        Optional<User> optionalUser = userRepository.findByUserId(userId);
+//    public ResponseEntity findUser(String userId) {
+//        Optional<User> optionalUser = userRepository.findByUserId(userId);
+//
+//        User findUser = optionalUser.orElseThrow(
+//                () -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND)
+//        );
+//
+//        return new ResponseEntity(findUser, HttpStatus.OK);
+//    }
 
-        User findUser = optionalUser.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND)
-        );
 
-        return new ResponseEntity(findUser, HttpStatus.OK);
-    }
-
-
-    @Transactional(readOnly = true)
-    public User findVerifiedUser(String userId) {
-        Optional<User> optionalMember = userRepository.findByUserId(userId);
-
-        User findUser = optionalMember.orElseThrow(
-                () -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
-
-        return findUser;
-    }
+//    @Transactional(readOnly = true)
+//    public User findVerifiedUser(String userId) {
+//        Optional<User> optionalMember = userRepository.findByUserId(userId);
+//
+//        User findUser = optionalMember.orElseThrow(
+//                () -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+//
+//        return findUser;
+//    }
 
 
     public String deleteUser(String userId, String userPw) {
-        User findUser = findVerifiedUser(userId);
+//        User findUser = findVerifiedUser(userId);
+
+        User findUser = userRepository.findByUserId(userId);
 
         if (findUser.getUserPw().equals(userPw)) {
             userRepository.delete(findUser);

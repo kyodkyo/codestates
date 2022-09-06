@@ -45,12 +45,12 @@ public class UserController {
     }
 
 
-    @GetMapping("/find")
-    public ResponseEntity findUser(@RequestParam String userId) {
-        User user = userService.findVerifiedUser(userId);
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+//    @GetMapping("/find")
+//    public ResponseEntity findUser(@RequestParam String userId) {
+//        User user = userService.findVerifiedUser(userId);
+//
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 
 
     @DeleteMapping("/delete")
